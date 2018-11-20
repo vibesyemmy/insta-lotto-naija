@@ -1,0 +1,138 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "user-front": {
+      "root": "apps/user-front/",
+      "sourceRoot": "apps/user-front/src",
+      "projectType": "application",
+      "prefix": "lotto",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/user-front",
+            "index": "apps/user-front/src/index.html",
+            "main": "apps/user-front/src/main.ts",
+            "polyfills": "apps/user-front/src/polyfills.ts",
+            "tsConfig": "apps/user-front/tsconfig.app.json",
+            "assets": [
+              "apps/user-front/src/favicon.ico",
+              "apps/user-front/src/assets"
+            ],
+            "styles": [
+              "apps/user-front/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/user-front/src/environments/environment.ts",
+                  "with": "apps/user-front/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "user-front:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "user-front:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "user-front:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/user-front/tsconfig.app.json",
+              "apps/user-front/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/user-front/jest.config.js",
+            "tsConfig": "apps/user-front/tsconfig.spec.json",
+            "setupFile": "apps/user-front/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "user-front-e2e": {
+      "root": "apps/user-front-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/user-front-e2e/protractor.conf.js",
+            "devServerTarget": "user-front:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "user-front:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/user-front-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/schematics",
+    "packageManager": "yarn"
+  },
+  "defaultProject": "user-front"
+}
