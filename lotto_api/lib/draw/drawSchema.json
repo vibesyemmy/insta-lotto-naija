@@ -1,0 +1,25 @@
+{
+  "className": "Draw",
+  "fields": {
+    "ticket": {
+      "type": "Pointer",
+      "targetClass": "Ticket"
+    }
+  },
+  "classLevelPermissions": {
+    "find": {
+      "role:admin": true,
+      "role:user": true
+    },
+    "get": {
+      "role:admin": true,
+      "role:user": true
+    },
+    "create": {
+      "role:admin": true
+    },
+    "update": {},
+    "delete": {},
+    "addField": {}
+  }
+}

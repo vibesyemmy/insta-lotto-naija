@@ -1,0 +1,39 @@
+{
+  "className": "Ticket",
+  "fields": {
+    "hash": {
+      "type": "String"
+    },
+    "number": {
+      "type": "String"
+    },
+    "picked": {
+      "type": "Boolean"
+    },
+    "drawCount": {
+      "type": "Number"
+    },
+    "player": {
+      "type": "Pointer",
+      "targetClass": "_User"
+    }
+  },
+  "classLevelPermissions": {
+    "find": {
+      "role:admin": true,
+      "role:user": true
+    },
+    "get": {
+      "role:admin": true,
+      "role:user": true
+    },
+    "create": {
+      "role:user": true
+    },
+    "update": {},
+    "delete": {
+      "role:admin": true
+    },
+    "addField": {}
+  }
+}
