@@ -1,0 +1,25 @@
+version: '3'
+services: 
+  redis-server:
+    image: redis:5-alpine3.8
+  mongo:
+    image: mvertes/alpine-mongo:4.0.3-0
+    volumes:
+      - "mongoData:/data/mongo/db"
+  lotto-api:
+    restart: always
+    build: ./lotto_api
+    environment: 
+      -  DB_HOST=mongo:27017
+      -  DB_NAME=lotto
+      -  APP_ID=abcd
+      -  MASTER_KEY=efg
+      -  HOST_NAME=192.168.8.103
+      -  PARSE_MOUNT=api
+      -  PROD=false
+    ports: 
+      - "3000:3000"
+    depends_on: 
+      - mongo
+volumes:
+  mongoData:

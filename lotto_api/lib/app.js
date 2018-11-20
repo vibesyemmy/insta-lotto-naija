@@ -47,8 +47,6 @@ const dashboard = new ParseDashboard({
 app.use('/api', api);
 app.use('/server/dashboard', dashboard);
 
-console.log(PROD, APP_ID, );
-
 app.listen(PORT, {
 	app: process.env.APP_ID,
 	host: process.env.HOST_NAME,
