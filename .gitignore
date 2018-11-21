@@ -117,3 +117,8 @@ testem.log
 .DS_Store
 
 # End of https://www.gitignore.io/api/angular
+
+# User front assets
+
+lotto-front-main/user-front/src
+lotto-front-main/admin-front/src
