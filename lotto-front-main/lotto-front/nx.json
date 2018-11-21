@@ -20,6 +20,11 @@
       "tags": [
         "lt-home"
       ]
+    },
+    "shared": {
+      "tags": [
+        "lt-shared"
+      ]
     }
   }
 }

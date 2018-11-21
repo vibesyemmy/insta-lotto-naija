@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<header>
+    <lotto-front-home-toolbar [isLoggedIn]="true"></lotto-front-home-toolbar>
+</header>
+
+<div class="container content">
+    <div class="row">
+        <div class="col-md-8">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="col-md-4">
+            <!-- Sticky numbers pane -->
+        </div>
+    </div>
+</div>
+
+<footer></footer>

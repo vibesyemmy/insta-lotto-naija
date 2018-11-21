@@ -18,6 +18,9 @@
     "paths": {
       "@lotto-front/home": [
         "libs/home/src/index.ts"
+      ],
+      "@lotto-front/shared": [
+        "libs/shared/src/index.ts"
       ]
     }
   },
