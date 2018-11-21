@@ -16,6 +16,9 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@lotto-front/home": [
+        "libs/home/src/index.ts"
+      ]
     }
   },
   "exclude": [

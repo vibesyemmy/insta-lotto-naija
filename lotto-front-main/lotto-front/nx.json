@@ -15,6 +15,11 @@
     },
     "user-front-e2e": {
       "tags": []
+    },
+    "home": {
+      "tags": [
+        "lt-home"
+      ]
     }
   }
 }
