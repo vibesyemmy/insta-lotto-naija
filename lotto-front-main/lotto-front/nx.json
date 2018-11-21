@@ -25,6 +25,9 @@
       "tags": [
         "lt-shared"
       ]
+    },
+    "model": {
+      "tags": []
     }
   }
 }

@@ -6,13 +6,14 @@ import { NxModule } from '@nrwl/nx';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@lotto-front/shared';
 
+const paths = [{path: '', loadChildren: '@lotto-front/home#HomeModule'}];
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     SharedModule,
     NxModule.forRoot(),
-    RouterModule.forRoot([{path: 'home', loadChildren: '@lotto-front/home#HomeModule'}], { initialNavigation: 'enabled' })
+    RouterModule.forRoot(paths, { initialNavigation: 'enabled' })
   ],
   providers: [],
   bootstrap: [AppComponent]

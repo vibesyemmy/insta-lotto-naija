@@ -21,6 +21,9 @@
       ],
       "@lotto-front/shared": [
         "libs/shared/src/index.ts"
+      ],
+      "@lotto-front/model": [
+        "libs/model/src/index.ts"
       ]
     }
   },
