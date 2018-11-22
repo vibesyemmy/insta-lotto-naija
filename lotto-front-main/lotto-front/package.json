@@ -39,7 +39,6 @@
     "@ngrx/router-store": "6.1.0",
     "@ngrx/store": "6.1.0",
     "@nrwl/nx": "7.0.2",
-    "@types/parse": "^2.1.0",
     "bootstrap": "^4.1.3",
     "core-js": "^2.5.4",
     "lodash": "^4.17.11",
