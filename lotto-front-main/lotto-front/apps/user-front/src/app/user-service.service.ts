@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserData, map as Map } from '@lotto-front/model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ParseService } from './parse-service.service';
+import { ParseService } from '@lotto-front/shared';
 
 @Injectable({
   providedIn: 'root'

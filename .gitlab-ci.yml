@@ -9,11 +9,11 @@ test-api:
   script:
     - "cd lotto_api"
     - "npm i -g istanbul mocha && npm install && npm run test"
-test-web:
-  stage: test
-  script:
-    - "cd lotto-front-main/lotto-front"
-    - "npm install -g @angular/cli @nrwl/schematics && npm install && npm test"
+# test-web:
+#   stage: test
+#   script:
+#     - "cd lotto-front-main/lotto-front"
+#     - "npm install -g @angular/cli @nrwl/schematics && npm install && npm test"
 
 build-api:
   image: docker:latest

@@ -2,13 +2,16 @@
     <lotto-front-home-toolbar [isLoggedIn]="true"></lotto-front-home-toolbar>
 </header>
 
-<div class="container content">
+<div class="container-fluid content">
+    <div class="overlay"></div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-xs-12 col-md-9">
             <router-outlet></router-outlet>
         </div>
-        <div class="col-md-4">
+        <div class="side col-xs-12 col-md-3">
             <!-- Sticky numbers pane -->
+            <lotto-front-recent-winner></lotto-front-recent-winner>
+            <lotto-front-recent-ticket [tickets]="ticketsObservable | async"></lotto-front-recent-ticket>
         </div>
     </div>
 </div>

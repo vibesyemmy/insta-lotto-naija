@@ -8,7 +8,7 @@ RUN npm install -g @angular/cli @nrwl/schematics && npm install && npm cache cle
 
 COPY . .
 
-RUN cd lotto-front && ng b --prod user-front
+RUN cd lotto-front && npm rebuild node-sass && ng b --prod user-front
 
 FROM nginx:1.15.6-alpine
 

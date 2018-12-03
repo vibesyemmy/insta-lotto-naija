@@ -1,1 +1,33 @@
-<h2>Pick your winning number</h2>
+<div class="content container">
+  <div class="row align-items-center">
+    <div class="col-xs-12 d-table picker">
+      <h2 class="text-center heading home-title">Pick your winning number</h2>
+      <p class="text-center">Numbers are valid for 9 draws</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 offset-sm-2">
+            <form [formGroup]="lottoForm" (ngSubmit)="addTicket(lottoForm.value)">
+              <div class="form-group">
+                <div class="container">
+                  <div class="row numbers d-sm-flex justify-content-center">
+                    <div class="col col-sm-auto"><input formControlName="digit1" type="text" class="lotto-entry" #digit1></div>
+                    <div class="col col-sm-auto"><input formControlName="digit2" type="text" class="lotto-entry" (keyup.backspace)="previousFocus(0)" #digit2></div>
+                    <div class="col col-sm-auto"><input formControlName="digit3" type="text" class="lotto-entry" (keyup.backspace)="previousFocus(1)" #digit3></div>
+                    <div class="col col-sm-auto"><input formControlName="digit4" type="text" class="lotto-entry" (keyup.backspace)="previousFocus(2)" #digit4></div>
+                    <div class="col col-sm-auto"><input formControlName="digit5" type="text" class="lotto-entry" (keyup.backspace)="previousFocus(3)" #digit5></div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="form-group footer">
+                <div class="row justify-content-center">
+                  <button [disabled]="lottoForm.invalid" class="btn btn-primary btn-lg">Play</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

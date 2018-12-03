@@ -1,4 +1,83 @@
 /* You can add global styles to this file, and also import other style files */
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic);
 @import "styles-variables";
 @import '~bootstrap/scss/bootstrap-reboot';
 @import '~bootstrap/scss/bootstrap-grid';
+
+html,body {
+  height: 100%;
+}
+
+body {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .heading {
+    display: block;
+    font-family: "Lato", "Helvetica Neue", Arial, Helvetica, sans-serif;
+    line-height: 1.1;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 20px 0 15px;
+    font-weight: 300;
+  }
+
+  h6 {
+    margin: 20px 0 10px;
+  }
+
+  .heading {
+    margin: 0 0 10px;
+    font-weight: 400;
+  }
+
+  .sub-title {
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+
+  .sub-title,
+  .sub-title.alt {
+    font-family: "PT Sans", Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  .sub-title.alt {
+    color: #b5b5b5;
+  }
+
+  .sub-title.big {
+    font-family: "Lato", "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 23px;
+    line-height: 30px;
+  }
+
+  p {
+    margin: 0 0 10px;
+    line-height: 25px;
+  }
+
+  .sub-header {
+    margin-bottom: 30px;
+  }
+
+  strong {
+    font-family: "Lato", "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-weight: 700;
+  }
+
+  small {
+    font-weight: 300;
+    font-size: 15px;
+  }
+}

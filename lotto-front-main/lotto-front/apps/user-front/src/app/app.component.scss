@@ -1,0 +1,22 @@
+.content {
+  padding-top: 65px;
+  background: url("../assets/img/bg.png");
+  height: 100%;
+}
+
+.side {
+  background: #ffffff;
+  padding-top: 5px;
+  height: 100%;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ff6600;
+  background: -webkit-gradient(left top, right bottom, color-stop(0%, #ff6600), color-stop(25%, rgba(255, 102, 0, 0.92)), color-stop(70%, rgba(189, 24, 112, 0.78)), color-stop(100%, rgba(189, 24, 112, 0.68)));
+  background: linear-gradient(135deg, #f4627ce0 0%, #b536a6f0 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff6600', endColorstr='#bd1870', GradientType=1);
+}

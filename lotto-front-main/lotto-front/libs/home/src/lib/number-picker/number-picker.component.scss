@@ -1,0 +1,103 @@
+$box-size: 43.5px;
+$input-ont-size: 32px;
+$title-size: 40px;
+
+@mixin respond-to($media) {
+  @if $media == handhelds {
+    @media only screen and (max-width: 320px) { @content; }
+  }
+  @else if $media == medium-screens {
+    @media only screen and (min-width: 321px) and (max-width: 1024px) { @content; }
+  }
+  @else if $media == wide-screens {
+    @media only screen and (min-width: 1024px) { @content; }
+  }
+}
+
+.content {
+  min-height: 678px;
+  padding-top: 201.5px;
+  padding-bottom: 0px;
+  color: #fff;
+
+  @include respond-to(handhelds) {
+    padding-top: 148px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  @include respond-to(medium-screens) {
+    padding-top: 77.5px;
+  }
+
+  .home-title {
+    text-align: center;
+    font-weight: 300;
+    font-size: $title-size + 16;
+
+    @include respond-to(handhelds) {
+      font-size: $title-size;
+    }
+  }
+  .lotto-entry {
+    padding: 10px;
+    border: 1px solid #ddd;
+    width: $box-size * 1.5;
+    height: $box-size * 1.5;
+    text-align: center;
+    font-size: $input-ont-size + 16;
+    border-radius: 10px;
+    font-family: "Lato", "Helvetica Neue", Arial, Helvetica, sans-serif;
+    color: #CA4799;
+
+    @include respond-to(medium-screens) {
+      width: $box-size;
+      height: $box-size;
+      font-size: $input-ont-size;
+    }
+
+    @include respond-to(handhelds) {
+      width: $box-size - 8;
+      height: $box-size - 8;
+      font-size: $input-ont-size - 10;
+    }
+  }
+  .picker {
+    margin: auto;
+    width: 84%;
+    @media screen and (max-width: 375px) {
+      width: 100%;
+    }
+  }
+
+  .btn {
+    text-transform: uppercase;
+  }
+}
+
+.numbers {
+  padding-top: 24px;
+  margin-left: auto;
+  @media screen and (max-width: 375px) {
+    .col-sm-auto {
+      max-width: 20%;
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    .col-sm-auto {
+      max-width: 20%;
+    }
+  }
+}
+
+.form-group {
+  .btn {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.form-group.footer {
+  padding-top: 20px;
+}
+

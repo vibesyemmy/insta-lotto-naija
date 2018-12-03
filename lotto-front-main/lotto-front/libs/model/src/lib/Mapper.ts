@@ -1,3 +1,3 @@
-export interface Mapper {
-    <T, F>(arg: F): T;
+export interface Mapper<T, F> {
+  map: (F) => T;
 }

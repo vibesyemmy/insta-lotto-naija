@@ -5,7 +5,7 @@ export class AppPage {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('lotto-root h1')).getText();
+  getPageTitleText() {
+    return element(by.css('lotto-front-number-picker .home-title')).getText();
   }
 }

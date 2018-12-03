@@ -1,0 +1,4 @@
+<ng-container *ngIf="tickets.length > 0">
+    <h3>Recently Played Numbers</h3>
+  <lotto-front-ticket-stub *ngFor="let ticket of tickets" [ticket]=ticket></lotto-front-ticket-stub>
+</ng-container>

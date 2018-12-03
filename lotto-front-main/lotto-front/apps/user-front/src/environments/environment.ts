@@ -1,9 +1,15 @@
+import { ParseParams } from "@lotto-front/model";
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  parseParams: <ParseParams> {
+    appId: "abcd",
+    serverUrl: "http://lotto-api:3000/api"
+  }
 };
 
 /*

@@ -27,9 +27,11 @@
               "apps/user-front/src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap/dist/css/bootstrap-reboot.css",
               "node_modules/bootstrap/dist/css/bootstrap-grid.css",
-              "apps/user-front/src/styles.scss"
+              "apps/user-front/src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },

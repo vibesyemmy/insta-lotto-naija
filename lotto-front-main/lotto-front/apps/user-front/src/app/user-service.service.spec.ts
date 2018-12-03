@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import * as Parse from 'parse';
 import { UserServiceService } from './user-service.service';
-import { ParseService } from './parse-service.service';
+import { ParseService } from '@lotto-front/shared';
 
 describe('UserServiceService', () => {
 

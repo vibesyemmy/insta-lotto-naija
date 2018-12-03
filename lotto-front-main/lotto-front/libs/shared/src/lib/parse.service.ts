@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, of } from 'rxjs';
 import * as Parse from 'parse';
+import { ParseParams } from '@lotto-front/model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,17 @@ import * as Parse from 'parse';
 export class ParseService {
 
   userSubject: Subject<Parse.User> = new Subject();
-  userObservable: Observable<Parse.User> = this.userSubject.asObservable()
+  userObservable: Observable<Parse.User> = this.userSubject.asObservable();
 
-  constructor() { }
+  constructor() {
+    const params: ParseParams = {
+      appId: "abcd",
+      serverUrl:  this.getUrl()
+    }
+    console.log(params);
+    Parse.initialize(params.appId);
+    Parse.serverURL = params.serverUrl;
+  }
 
   getUser(): Parse.User {
     return Parse.User.current();
@@ -39,5 +48,17 @@ export class ParseService {
       this.userSubject.error(error);
       console.error(error);
     }
+  }
+  async save(obj: Parse.Object) {
+    try {
+      await obj.save();
+      return obj;
+    } catch (error) {
+      throw error
+    }
+  }
+
+  getUrl(): string {
+    return "http://localhost:3000/api";
   }
 }

@@ -9,6 +9,11 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to user-front!');
+    expect(page.getPageTitleText()).toEqual('Pick your winning number');
   });
+
+  it('should display play column', () => {
+    page.navigateTo();
+    expect(page.getPageTitleText()).toEqual('Recently Played Numbers');
+  })
 });
