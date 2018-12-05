@@ -32,7 +32,7 @@ tag() {
 
     if [ $doTag = y ]
     then
-        deploy $doTag
+        deploy $tag_message
     fi 
 }
 
