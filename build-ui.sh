@@ -25,15 +25,8 @@ tag() {
     echo tag
     echo Enter commit tag
     read tag_message
-    echo $tag_message | git commit -F -
-
-    echo Do you want want to deploy this tag?
-    read doTag
-
-    if [ $doTag = y ]
-    then
-        deploy $tag_message
-    fi 
+    echo $tag_message | git tag -F -
+    deploy $tag_message
 }
 
 deploy() {
