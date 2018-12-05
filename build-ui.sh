@@ -30,7 +30,7 @@ tag() {
     echo Do you want want to deploy this tag?
     read doTag
 
-    if [$doTag = y]
+    if [ $doTag = y ]
     then
         deploy $doTag
     fi 
