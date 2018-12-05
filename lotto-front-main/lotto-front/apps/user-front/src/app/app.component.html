@@ -1,19 +1,85 @@
-<header>
-    <lotto-front-home-toolbar [isLoggedIn]="true"></lotto-front-home-toolbar>
-</header>
-
+<lotto-front-home-toolbar [isLoggedIn]="false" (clickAction)="handleToolbarAction($event)"></lotto-front-home-toolbar>
 <div class="container-fluid content">
-    <div class="overlay"></div>
     <div class="row">
-        <div class="col-xs-12 col-md-9">
+        <div class="col-sm-12 col-md-9">
             <router-outlet></router-outlet>
         </div>
-        <div class="side col-xs-12 col-md-3">
+        <div class="side col-sm-12 col-md-3">
             <!-- Sticky numbers pane -->
             <lotto-front-recent-winner></lotto-front-recent-winner>
             <lotto-front-recent-ticket [tickets]="ticketsObservable | async"></lotto-front-recent-ticket>
         </div>
     </div>
 </div>
-
 <footer></footer>
+
+<ng-template #login>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Sign In</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="well">
+          <form [formGroup]="loginForm" id="loginForm" (ngSubmit)="doLogin()">
+            <div class="form-group">
+                <label for="username" class="control-label">Email</label>
+                <input formControlName="email" type="email" class="form-control" id="username" name="username" title="Please enter you username" placeholder="example@gmail.com">
+                <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+                <label for="password" class="control-label">Password</label>
+                <input formControlName="password" type="password" class="form-control" id="password" name="password" title="Please enter your password">
+                <span class="help-block"></span>
+            </div>
+            <!-- <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div> -->
+            <button [disabled]="loginForm.invalid" type="submit" class="btn btn-success btn-block">Login</button>
+            <a href="/forgot/" class="btn btn-default btn-block">Help to login</a>
+          </form>
+        </div>
+      </div>
+  </div>
+  </div>
+</ng-template>
+
+<ng-template #register>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Sign Up</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="well">
+          <form [formGroup]="registerForm" id="loginForm" method="POST" action="/login/" novalidate="novalidate">
+            <div class="form-group">
+                <label for="username" class="control-label">Email</label>
+                <input formControlName="email" type="email" class="form-control" id="username" name="username" title="Please enter you username" placeholder="example@gmail.com">
+                <span class="help-block"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="control-label">Password</label>
+                <input formControlName="password" type="password" class="form-control" id="password" name="password" title="Please enter your password">
+                <span class="help-block"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="phone" class="control-label">Phone</label>
+              <input formControlName="phone" type="tel" class="form-control" id="phone" name="phone" title="Please enter you phone number" placeholder="08033440345">
+              <span class="help-block"></span>
+          </div>
+            <!-- <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div> -->
+            <button [disabled]="registerForm.invalid" type="submit" class="btn btn-success btn-block">Login</button>
+            <a href="/forgot/" class="btn btn-default btn-block">Help to login</a>
+          </form>
+        </div>
+      </div>
+  </div>
+  </div>
+</ng-template>

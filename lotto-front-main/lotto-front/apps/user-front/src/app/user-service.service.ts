@@ -25,7 +25,7 @@ export class UserServiceService {
       this.parseService.userSubject.error(new Error('Username or password is invalid.'));
       return;
     }
-    this.parseService.login(username, password);
+    // this.parseService.login(username, password);
   }
   signUp(username: string, password: string, email: string, phone: string) {
     if (
@@ -37,6 +37,6 @@ export class UserServiceService {
       this.parseService.userSubject.error(new Error('Please ensure that you have entered the correct informtion..'));
       return;
     }
-    this.parseService.signUp(username, password, email, phone);
+    // this.parseService.signUp(username, password, email, phone);
   }
 }

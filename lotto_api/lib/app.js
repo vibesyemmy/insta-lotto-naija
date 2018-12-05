@@ -32,10 +32,14 @@ const api = new ParseServer({
 	masterKey: MASTER_KEY,
 	serverURL: serverURL,
 	publicServerURL: publicServerURL,
-	allowClientClassCreation: false
+	allowClientClassCreation: false,
+	liveQuery: {
+		classNames: ['Ticket', 'Draw']
+	}
 });
 
 const dashboard = new ParseDashboard({
+	"allowInsecureHTTP": true,
 	'apps': [{
 		'serverURL': serverURL,
 		'appId': APP_ID,
@@ -47,9 +51,9 @@ const dashboard = new ParseDashboard({
 app.use('/api', api);
 app.use('/server/dashboard', dashboard);
 
-app.listen(PORT, {
-	app: process.env.APP_ID,
-	host: process.env.HOST_NAME,
-	master: process.env.MASTER_KEY
-});
+// app.listen(PORT, {
+// 	app: process.env.APP_ID,
+// 	host: process.env.HOST_NAME,
+// 	master: process.env.MASTER_KEY
+// });
 module.exports = app;

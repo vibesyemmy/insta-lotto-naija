@@ -81,3 +81,26 @@ body {
     font-size: 15px;
   }
 }
+
+@media (max-width: 767px) {
+  body {
+    -webkit-transition: right 0.4s ease;
+    -moz-transition: right 0.4s ease;
+    -o-transition: right 0.4s ease;
+    transition: right 0.4s ease;
+    position: relative;
+    right: 0;
+
+    .collapsed {
+      right: 270px;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  body {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+}
+

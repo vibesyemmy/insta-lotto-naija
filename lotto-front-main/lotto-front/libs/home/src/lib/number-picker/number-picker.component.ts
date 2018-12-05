@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { TicketService } from '@lotto-front/shared';
 
 @Component({
   selector: 'lotto-front-number-picker',
@@ -19,8 +22,15 @@ export class NumberPickerComponent implements OnInit, OnDestroy {
   @ViewChild("digit3") digit3Element: ElementRef;
   @ViewChild("digit4") digit4Element: ElementRef;
   @ViewChild("digit5") digit5Element: ElementRef;
+  @ViewChild("loading") loadingRef: ElementRef;
 
-  constructor(private fb: FormBuilder) {
+  modalRef: BsModalRef;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: false
+  };
+
+  constructor(fb: FormBuilder, private ts: TicketService) {
     this.lottoForm = fb.group({
       'digit1' : [null, Validators.compose([Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(1), Validators.maxLength(1)])],
       'digit2' : [null, Validators.compose([Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(1), Validators.maxLength(1)])],
@@ -32,27 +42,27 @@ export class NumberPickerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const sub1 = this.lottoForm.get("digit1").valueChanges.pipe(
-      filter((value: string) => value.length === 1)
-    ).subscribe(() => {
-      this.digit2Element.nativeElement.focus()
-    });
-    const sub2 = this.lottoForm.get("digit2").valueChanges.pipe(
-      filter((value: string) => value.length === 1)
-    ).subscribe(() => {
-      this.digit3Element.nativeElement.focus()
-    });
-    const sub3 = this.lottoForm.get("digit3").valueChanges.pipe(
-      filter((value: string) => value.length === 1)
-    ).subscribe(() => {
-      this.digit4Element.nativeElement.focus()
-    });
-    const sub4 = this.lottoForm.get("digit4").valueChanges.pipe(
-      filter((value: string) => value.length === 1)
-    ).subscribe(() => {
-      this.digit5Element.nativeElement.focus()
-    });
-    this.compositeSubscription = [sub1, sub2, sub3, sub4]
+    // const sub1 = this.lottoForm.get("digit1").valueChanges.pipe(
+    //   filter((value: string) => value.length === 1),
+    // ).subscribe(() => {
+    //   this.digit2Element.nativeElement.focus()
+    // });
+    // const sub2 = this.lottoForm.get("digit2").valueChanges.pipe(
+    //   filter((value: string) => value.length === 1)
+    // ).subscribe(() => {
+    //   this.digit3Element.nativeElement.focus()
+    // });
+    // const sub3 = this.lottoForm.get("digit3").valueChanges.pipe(
+    //   filter((value: string) => value.length === 1)
+    // ).subscribe(() => {
+    //   this.digit4Element.nativeElement.focus()
+    // });
+    // const sub4 = this.lottoForm.get("digit4").valueChanges.pipe(
+    //   filter((value: string) => value.length === 1)
+    // ).subscribe(() => {
+    //   this.digit5Element.nativeElement.focus()
+    // });
+    // this.compositeSubscription = [sub1, sub2, sub3, sub4]
   }
 
   ngOnDestroy() {
@@ -65,27 +75,54 @@ export class NumberPickerComponent implements OnInit, OnDestroy {
 
   addTicket(ticketNumbers) {
     const num = `${ticketNumbers.digit1}${ticketNumbers.digit2}${ticketNumbers.digit3}${ticketNumbers.digit4}${ticketNumbers.digit5}`;
-    console.log(num)
+    this.ts.buyTicket(num);
+    this.lottoForm.reset();
   }
 
   previousFocus(num) {
     switch(num) {
-      case 0: {
+      case 1: {
         this.digit1Element.nativeElement.focus()
         break;
       }
-      case 1: {
+      case 2: {
         this.digit2Element.nativeElement.focus()
         break;
       }
-      case 2: {
+      case 3: {
         this.digit3Element.nativeElement.focus()
         break;
       }
-      case 3: {
+      case 4: {
         this.digit4Element.nativeElement.focus()
         break;
       }
     }
+  }
+
+  onKey(event: any, num) { // without type info
+    if (event.key === 'Backspace') {
+      this.previousFocus(num);
+    } else {
+      switch (num) {
+        case 0: {
+          this.digit2Element.nativeElement.focus()
+          break;
+        }
+        case 1: {
+          this.digit3Element.nativeElement.focus()
+          break;
+        }
+        case 2: {
+          this.digit4Element.nativeElement.focus()
+          break;
+        }
+        case 3: {
+          this.digit5Element.nativeElement.focus()
+          break;
+        }
+      }
+    }
+    console.log(event, num)
   }
 }

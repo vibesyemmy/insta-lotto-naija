@@ -77,38 +77,48 @@ Controller.beforeSave = (Parse) => {
 
 			// New Ticket
 			if (!ticket.existed()) {
-				const startDate = new moment(d).subtract(3, 'day');
-				startDate.startOf('day');
-				const endDate = new moment(startDate).add(3, 'day');
-
 				// find ticket with picked number
 				// TODO: Limit search to the past three days
-				const tQ = new Parse.Query('Ticket');
-				tQ.equalTo('numbers', ticket.get('numbers'));
-				tQ.greaterThanOrEqualTo('createdAt', startDate.toDate());
-				tQ.lessThan('createdAt', endDate.toDate());
-				tQ.lessThan('drawCount', 9);
-				tQ.equalTo('picked', false);
+				const sameNumberQ = new Parse.Query('Ticket');
+				sameNumberQ.equalTo('number', ticket.get('number'));
 
-				// Determine if ticket already exists and throw error if it does
-				const t = await tQ.first();
-				if (t) throw new Error('These numbers have been picked');
+				const t = await sameNumberQ.first();
+				console.log(t);
+				if (!isValidTicket(t)) {
+					throw new Error('These numbers have been picked');
+				} else {
+					const acl = new Parse.ACL();
+					acl.setPublicReadAccess(true);
+					acl.setRoleWriteAccess('admin', true);
 
-				const acl = new Parse.ACL();
-				acl.setPublicReadAccess(true);
-				acl.setRoleWriteAccess('admin', true);
-
-				ticket.setACL(acl);
-				const seed = `${user.id}-${new Date()}`;
-				ticket.set('hash', md5.hex(seed));
-				ticket.set('picked', false);
-				ticket.set('drawCount', 0);
+					ticket.setACL(acl);
+					const seed = `${user.id}-${new Date()}`;
+					ticket.set('hash', md5.hex(seed));
+					ticket.set('picked', false);
+					ticket.set('drawCount', 0);
+					ticket.set('player', user);
+				}
 			}
 		} catch (error) {
 			throw error;
 		}
 	};
 };
+
+function isValidTicket(ticket) {
+	const begin = moment().subtract(3, 'days').startOf('day');
+	if(ticket === undefined || ticket == null) {
+		return true;
+	} else if (moment(ticket.get("createdAt")).isBefore(begin)) {
+		return true;
+	} else if(ticket.get('drawCount') == 9) {
+		return true;
+	} else if(ticket.get("picked")){
+		return true;
+	} else {
+		return false;
+	}
+}
 
 Controller.incrementDrawCount = (Parse) => {
 	return async (req) => {

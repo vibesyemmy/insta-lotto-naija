@@ -27,11 +27,13 @@
               "apps/user-front/src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "node_modules/bootstrap/dist/css/bootstrap-reboot.css",
               "node_modules/bootstrap/dist/css/bootstrap-grid.css",
               "apps/user-front/src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-intl-tel-input/resource/intl-tel-input.css"
             ],
             "scripts": []
           },
@@ -96,7 +98,11 @@
           "options": {
             "jestConfig": "apps/user-front/jest.config.js",
             "tsConfig": "apps/user-front/tsconfig.spec.json",
-            "setupFile": "apps/user-front/src/test-setup.ts"
+            "setupFile": "apps/user-front/src/test-setup.ts",
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
+            ]
           }
         }
       }

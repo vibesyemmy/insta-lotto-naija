@@ -23,7 +23,7 @@ export class TicketMapper {
   map(input: Parse.Object): Ticket {
     return {
       objectId: input.id,
-      numbers: input.has("numbers") ? input.get("numbers") : "",
+      numbers: input.has("number") ? input.get("number") : "",
       drawCount: input.has("drawCount") ? input.get("drawCount") : 0,
       picked: input.has("picked") ? input.get("picked") : false,
       createdAt: input.has("createdAt") ? input.get("createdAt") : Date()

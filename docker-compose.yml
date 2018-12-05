@@ -6,6 +6,17 @@ services:
     image: mvertes/alpine-mongo:4.0.3-0
     volumes:
       - "mongoData:/data/mongo/db"
+  lotto-live-api:
+    restart: always
+    build: ./lotto-live-server
+    environment:
+      -  APP_ID=abcd
+      -  MASTER_KEY=efg
+      -  SERVER_URL=localhost
+      -  redisURL=redis-server:6379
+      -  PORT=3030
+    ports: 
+      - "3030:3030"
   lotto-api:
     restart: always
     build: ./lotto_api
@@ -14,7 +25,8 @@ services:
       -  DB_NAME=lotto
       -  APP_ID=abcd
       -  MASTER_KEY=efg
-      -  HOST_NAME=192.168.8.103
+      -  HOST_NAME=localhost
+      -  redisURL=redis-server:6379
       -  PARSE_MOUNT=api
       -  PROD=false
     ports: 

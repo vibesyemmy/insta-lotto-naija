@@ -10,11 +10,11 @@
               <div class="form-group">
                 <div class="container">
                   <div class="row numbers d-sm-flex justify-content-center">
-                    <div class="col col-sm-auto"><input formControlName="digit1" type="text" class="lotto-entry" #digit1></div>
-                    <div class="col col-sm-auto"><input formControlName="digit2" type="text" class="lotto-entry" (keyup.backspace)="previousFocus(0)" #digit2></div>
-                    <div class="col col-sm-auto"><input formControlName="digit3" type="text" class="lotto-entry" (keyup.backspace)="previousFocus(1)" #digit3></div>
-                    <div class="col col-sm-auto"><input formControlName="digit4" type="text" class="lotto-entry" (keyup.backspace)="previousFocus(2)" #digit4></div>
-                    <div class="col col-sm-auto"><input formControlName="digit5" type="text" class="lotto-entry" (keyup.backspace)="previousFocus(3)" #digit5></div>
+                    <div class="col col-sm-auto"><input formControlName="digit1" type="text" class="lotto-entry" (keyup)="onKey($event, 0)" #digit1></div>
+                    <div class="col col-sm-auto"><input formControlName="digit2" type="text" class="lotto-entry" (keyup)="onKey($event, 1)" #digit2></div>
+                    <div class="col col-sm-auto"><input formControlName="digit3" type="text" class="lotto-entry" (keyup)="onKey($event, 2)" #digit3></div>
+                    <div class="col col-sm-auto"><input formControlName="digit4" type="text" class="lotto-entry" (keyup)="onKey($event, 3)" #digit4></div>
+                    <div class="col col-sm-auto"><input formControlName="digit5" type="text" class="lotto-entry" (keyup)="onKey($event, 4)" #digit5></div>
                   </div>
                 </div>
 
@@ -31,3 +31,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #loading>
+
+</ng-template>

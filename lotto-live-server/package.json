@@ -1,0 +1,16 @@
+{
+  "name": "lotto-live-server",
+  "version": "1.0.0",
+  "description": "Lotto Live Server",
+  "main": "index.js",
+  "author": "Thompson Edolo",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "parse-server": "^3.1.2"
+  }
+}
