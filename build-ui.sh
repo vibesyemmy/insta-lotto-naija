@@ -18,6 +18,7 @@ commit() {
     read message
     git add .
     echo $message | git commit -F -
+    tag
 }
 
 tag() {
