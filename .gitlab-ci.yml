@@ -6,11 +6,11 @@ stages:
   - build
 before_script:
   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-test-api:
-  stage: test
-  script:
-    - "cd lotto_api"
-    - "npm i -g istanbul mocha && npm install && npm run test"
+# test-api:
+#   stage: test
+#   script:
+#     - "cd lotto_api"
+#     - "npm i -g istanbul mocha && npm install && npm run test"
 
 build-api:
   image: docker:latest
