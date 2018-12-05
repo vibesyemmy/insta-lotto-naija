@@ -1,0 +1,39 @@
+{
+  "user-front-e2e": [
+    {
+      "projectName": "user-front",
+      "type": "implicit"
+    }
+  ],
+  "user-front": [
+    {
+      "projectName": "shared",
+      "type": "es6Import"
+    },
+    {
+      "projectName": "model",
+      "type": "es6Import"
+    },
+    {
+      "projectName": "home",
+      "type": "loadChildren"
+    }
+  ],
+  "shared": [
+    {
+      "projectName": "model",
+      "type": "es6Import"
+    }
+  ],
+  "model": [],
+  "home": [
+    {
+      "projectName": "shared",
+      "type": "es6Import"
+    },
+    {
+      "projectName": "model",
+      "type": "es6Import"
+    }
+  ]
+}

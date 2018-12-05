@@ -1,17 +1,5 @@
-FROM node:10.13.0 as builder
-ENV HOME=/home/app
-WORKDIR $HOME/src
-
-COPY ./lotto-front/package.json .
-
-RUN npm install -g @angular/cli @nrwl/schematics && npm install && npm cache clean --force
-
-COPY . .
-
-RUN cd lotto-front && npm rebuild node-sass && ng b --prod user-front
-
 FROM nginx:1.15.6-alpine
 
 COPY ./user-front/config/nginx.conf /etc/nginx/nginx.conf
 
-COPY --from=builder /home/app/src/lotto-front/dist/apps/user-front /usr/share/nginx/html/
+COPY ./lotto-front/dist/apps/user-front /usr/share/nginx/html/
