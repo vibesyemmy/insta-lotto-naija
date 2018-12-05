@@ -3448,11 +3448,6 @@ globule@^1.0.0:
     lodash "~4.17.10"
     minimatch "~3.0.2"
 
-google-libphonenumber@^2.0.15:
-  version "2.0.19"
-  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-2.0.19.tgz#a6d5ff60412aa33b161bb830d70aa39682583054"
-  integrity sha512-kwtbruT+eyiof081cxT1tltMTxgTOq3CQhUoEYBROC+vNf+COPqzfKJtVnDvgXQe4SzfbnAYkP8KoSpbJBIlSg==
-
 graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.1.15"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
@@ -5664,23 +5659,10 @@ ngrx-store-freeze@0.2.4:
   dependencies:
     deep-freeze-strict "^1.1.1"
 
-ngx-bootstrap@^1.6.6:
-  version "1.9.3"
-  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-1.9.3.tgz#28e75d14fb1beaee609383d7694de4eb3ba03b26"
-  integrity sha512-beoKQGJEFwdg0ctIpGb+vx4PTPkyqHrA5tBAEbnUn7ZlTjjfA6533QYGv3qVoKPDNkkHmLA3lRjWKxEMYepCdg==
-
 ngx-bootstrap@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.1.2.tgz#f466f6290b456806dac2a9b95a12f9dc4979782f"
   integrity sha512-ULooVAtHBir96PDOz8aDP+slkoY+YX3EWeYV7rwkwMQooc6MaFc+EFBBrAkQf1n0N/rJ4Z9GGccRS5vk/1JFog==
-
-ngx-intl-tel-input@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/ngx-intl-tel-input/-/ngx-intl-tel-input-1.0.6.tgz#8b8fc074efecef301e4b2805d7cb31d315107e9d"
-  integrity sha1-i4/AdO/s7zAeSygF18sx0xUQfp0=
-  dependencies:
-    google-libphonenumber "^2.0.15"
-    ngx-bootstrap "^1.6.6"
 
 ngx-toastr@^9.1.1:
   version "9.1.1"
