@@ -25,7 +25,7 @@ tag() {
     echo tag
     echo Enter commit tag
     read tag_message
-    echo $tag_message | git tag -a -m "Auto tagged" -F -
+    git tag -a $tag_message -m "Auto tagged"
     deploy $tag_message
 }
 
