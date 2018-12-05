@@ -38,7 +38,7 @@ tag() {
 
 deploy() {
     echo deploy $1
-    echo $1 | git push origin -
+    git push origin $1
 }
 
 echo =====================================
