@@ -43,3 +43,12 @@ export const initTicketResponse: TicketResponse = {
   tickets: [],
   isLoading: true
 }
+
+export interface Draw {
+  ticket: Ticket;
+  createdAt?: Date;
+}
+
+export const initDraw: Draw = {
+  ticket: initTicket
+}

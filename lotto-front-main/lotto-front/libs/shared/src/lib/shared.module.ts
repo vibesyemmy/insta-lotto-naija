@@ -8,9 +8,10 @@ import { RecentTicketComponent } from './recent-ticket/recent-ticket.component';
 import { RecentWinnerComponent } from './recent-winner/recent-winner.component';
 import { TicketStubComponent } from './ticket-stub/ticket-stub.component';
 import { TicketService } from './ticket.service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [RouterModule, CommonModule],
   declarations: [HomeToolbarComponent, BigInputComponent, TicketInfoComponent, RecentTicketComponent, RecentWinnerComponent, TicketStubComponent],
   exports: [HomeToolbarComponent, BigInputComponent, RecentTicketComponent, RecentWinnerComponent],
   providers: [ParseService, TicketService]

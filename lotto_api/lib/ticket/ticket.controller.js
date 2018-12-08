@@ -4,6 +4,16 @@ const Ticket = require('./ticket.model'),
 	moment = require('moment'),
 	_ = require('lodash');
 const Controller = {};
+
+const secret = process.env.SECRET_KEY || sk_test_6dfbccfd9d90b44c0b0a48af63fb9c649faee59e;
+const axios = require('axios'),
+
+instance = axios.create();
+instance.defaults.headers.common['Content-Type'] = 'application/json';
+instance.defaults.headers.common['Authorization'] = `Bearer ${secret}`;
+
+const ticketPrice = process.env.DEFAULT_TICKET_PRICE || 200 * 100;
+
 const d = () => {
 	return new Date();
 };
@@ -105,6 +115,33 @@ Controller.beforeSave = (Parse) => {
 	};
 };
 
+Controller.afterSave = (Parse) => {
+	return async(req) => {
+		const baseURL = 'https://api.paystack.co/transaction/initialize';
+		const ticket = req.object;
+		const user = ticket.get('player');
+
+		if (!ticket.existed()) {
+			const res = await instance.post(baseURL, {
+				'reference': ticket.id,
+				'email': user.get('email'),
+				'amount': ticketPrice
+			});
+
+			const d = res.data
+			const authorization_url = d.data.authorization_url;
+			const access_code = d.data.authorization_url;
+			const message = d.message;
+
+			ticket.set('authorization_url', authorization_url);
+			ticket.set('access_code', access_code);
+			ticket.set('message', message);
+
+			ticket.save(null, {useMasterkey: true});
+		}
+	}
+}
+
 function isValidTicket(ticket) {
 	const begin = moment().subtract(3, 'days').startOf('day');
 	if(ticket === undefined || ticket == null) {
@@ -165,7 +202,7 @@ Controller.pick = async (Parse) => {
 };
 
 function getValidTicketQuery(Parse) {
-	const startDate = new moment(d).subtract(3, 'day');
+	const startDate = new moment().subtract(3, 'day');
 	startDate.startOf('day');
 	const endDate = new moment(startDate).add(3, 'day');
 	const tQ = Parse.Query('Ticket');

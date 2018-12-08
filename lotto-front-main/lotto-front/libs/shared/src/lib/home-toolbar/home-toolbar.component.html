@@ -3,7 +3,8 @@
 </p> -->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-off-white">
-  <a class="navbar-brand" href="#">
+  <div class="container">
+    <a class="navbar-brand" href="#">
     <img src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
   </a>
   <button class="navbar-toggler" type="button">
@@ -14,17 +15,26 @@
     <ng-container *ngIf="isLoggedIn; else login">
       <ul class="navbar-nav mr-auto" >
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" [routerLink]="['/']" >Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Profile</a>
+          <a class="nav-link" href="#">Winners</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Tickets</a>
         </li>
       </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/user', 'profile']">
+            <img [src]="avatarUrl" alt="" class="mx-auto rounded-circle">
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
     </ng-container>
 
+  </div>
   </div>
 </nav>
 

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lotto-live-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: live-server
+  template:
+    metadata:
+      labels:
+        component: live-server
+    spec:
+      containers:
+      - name: live-query-server
+        image: mrsmith9ja/lotto-live-api
+        ports:
+          - containerPort: 3030

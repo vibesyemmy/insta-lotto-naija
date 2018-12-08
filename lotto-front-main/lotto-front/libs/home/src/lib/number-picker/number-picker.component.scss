@@ -42,10 +42,10 @@ $title-size: 40px;
   .lotto-entry {
     padding: 10px;
     border: 1px solid #ddd;
-    width: $box-size * 1.5;
-    height: $box-size * 1.5;
+    width: $box-size + 9;
+    height: $box-size + 9;
     text-align: center;
-    font-size: $input-ont-size + 16;
+    font-size: $input-ont-size + 9;
     border-radius: 10px;
     font-family: "Lato", "Helvetica Neue", Arial, Helvetica, sans-serif;
     color: #CA4799;

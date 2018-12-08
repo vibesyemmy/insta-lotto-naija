@@ -36,6 +36,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   inflight = false;
 
+  isLoggedIn = this.ps.getUser() != null ? true : false;
+
   constructor(
     private ps: ParseService,
     private ts: TicketService,

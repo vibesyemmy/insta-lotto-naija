@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lotto-main-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: main-server
+  template:
+    metadata:
+      labels:
+        component: main-server
+    spec:
+      containers:
+      - name: main-server
+        image: mrsmith9ja/lotto-main-api
+        ports:
+          - containerPort: 3000

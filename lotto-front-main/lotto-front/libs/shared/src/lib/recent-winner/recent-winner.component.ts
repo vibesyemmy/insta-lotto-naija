@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Ticket } from '@lotto-front/model';
+import { Draw, initDraw } from '@lotto-front/model';
 
 @Component({
   selector: 'lotto-front-recent-winner',
@@ -9,7 +9,7 @@ import { Ticket } from '@lotto-front/model';
 export class RecentWinnerComponent implements OnInit {
 
   @Input()
-  tickets: Ticket[] = []
+  draws: Draw = initDraw
 
   constructor() { }
 

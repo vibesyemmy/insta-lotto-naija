@@ -1,5 +1,5 @@
-<lotto-front-home-toolbar [isLoggedIn]="false" (clickAction)="handleToolbarAction($event)"></lotto-front-home-toolbar>
-<div class="container-fluid content">
+<lotto-front-home-toolbar [isLoggedIn]=isLoggedIn (clickAction)="handleToolbarAction($event)"></lotto-front-home-toolbar>
+<div class="container content">
     <div class="row">
         <div class="col-sm-12 col-md-9">
             <router-outlet></router-outlet>
