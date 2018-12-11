@@ -17,8 +17,8 @@ RUN apk add --no-cache --virtual .gyp \
   git \
   python \
   make \
-  g++ \
-  && npm install && npm cache clean --force
+  g++
+RUN npm install && npm cache clean --force
 COPY . $HOME/src
 
 RUN npm run build

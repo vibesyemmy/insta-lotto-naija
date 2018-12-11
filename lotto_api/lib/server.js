@@ -15,8 +15,10 @@ const ParseServer = require('parse-server').ParseServer,
 
 const dbName = process.env.DB_NAME || 'lotto';
 const dbHost = process.env.DB_HOST || 'localhost';
-const mongoDB = `mongodb://${dbHost}/${dbName}`,
+const dbPort = process.env.DB_PORT || '27017';
+const mongoDB = `mongodb://${dbHost}:${dbPort}/${dbName}`,
 	ParseDashboard = require('parse-dashboard');
+const paymentRoutes = require('./payment/payment.router');
 
 // Constants
 
@@ -36,8 +38,8 @@ const api = new ParseServer({
 	publicServerURL: publicServerURL,
 	allowClientClassCreation: false,
 	liveQuery: {
-		classNames: ['Ticket', 'Draw'],
-		redisURL: `redis://${process.env.redisURL}` || "redis://:{password}@redis-123456.c11.us-east-1-3.ec2.cloud.redislabs.com:18091", // this is optional, include only if you're using Redis
+		classNames: ['Ticket', 'Draw', 'Payment'],
+		redisURL: `redis://${process.env.redisURL}:${process.env.redisPort}` || "redis://:{password}@redis-123456.c11.us-east-1-3.ec2.cloud.redislabs.com:18091", // this is optional, include only if you're using Redis
 	}
 });
 
@@ -53,6 +55,7 @@ const dashboard = new ParseDashboard({
 
 app.use('/api', api);
 app.use('/server/dashboard', dashboard);
+app.use('/payment', paymentRoutes);
 
 createServer(app).listen(PORT);
 // var parseLiveQueryServer = ParseServer.createLiveQueryServer(httpServer);

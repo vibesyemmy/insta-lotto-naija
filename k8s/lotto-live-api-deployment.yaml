@@ -15,5 +15,16 @@ spec:
       containers:
       - name: live-query-server
         image: mrsmith9ja/lotto-live-api
+        env:
+          - name: APP_ID
+            value: "abcd"
+          - name: redisURL
+            value: live-query-redis-cluster-ip-service
+          - name: redisPort
+            value: "6379"
+          - name: MASTER_KEY
+            value: efg
+          - name: PORT
+            value: "3030"
         ports:
           - containerPort: 3030

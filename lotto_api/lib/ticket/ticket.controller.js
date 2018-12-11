@@ -5,12 +5,9 @@ const Ticket = require('./ticket.model'),
 	_ = require('lodash');
 const Controller = {};
 
-const secret = process.env.SECRET_KEY || sk_test_6dfbccfd9d90b44c0b0a48af63fb9c649faee59e;
+const secret = process.env.SECRET_KEY || 'sk_test_6dfbccfd9d90b44c0b0a48af63fb9c649faee59e';
 const axios = require('axios'),
-
 instance = axios.create();
-instance.defaults.headers.common['Content-Type'] = 'application/json';
-instance.defaults.headers.common['Authorization'] = `Bearer ${secret}`;
 
 const ticketPrice = process.env.DEFAULT_TICKET_PRICE || 200 * 100;
 
@@ -82,11 +79,11 @@ Controller.beforeSave = (Parse) => {
 		const user = req.user,
 			ticket = req.object;
 		try {
-			if (!user) throw new Parse.Error('You must be logged in to create a ticket');
 			if (!ticket) throw new Parse.Error('You cannot save a null ticket');
 
 			// New Ticket
 			if (!ticket.existed()) {
+				if (!user) throw new Parse.Error('You must be logged in to create a ticket');
 				// find ticket with picked number
 				// TODO: Limit search to the past three days
 				const sameNumberQ = new Parse.Query('Ticket');
@@ -100,6 +97,7 @@ Controller.beforeSave = (Parse) => {
 					const acl = new Parse.ACL();
 					acl.setPublicReadAccess(true);
 					acl.setRoleWriteAccess('admin', true);
+					acl.setWriteAccess(user, true);
 
 					ticket.setACL(acl);
 					const seed = `${user.id}-${new Date()}`;
@@ -119,25 +117,35 @@ Controller.afterSave = (Parse) => {
 	return async(req) => {
 		const baseURL = 'https://api.paystack.co/transaction/initialize';
 		const ticket = req.object;
-		const user = ticket.get('player');
+		const user = req.user;
 
 		if (!ticket.existed()) {
-			const res = await instance.post(baseURL, {
-				'reference': ticket.id,
-				'email': user.get('email'),
-				'amount': ticketPrice
-			});
-
-			const d = res.data
-			const authorization_url = d.data.authorization_url;
-			const access_code = d.data.authorization_url;
-			const message = d.message;
-
-			ticket.set('authorization_url', authorization_url);
-			ticket.set('access_code', access_code);
-			ticket.set('message', message);
-
-			ticket.save(null, {useMasterkey: true});
+			try {
+				const res = await instance.post(baseURL, {
+					'reference': `${ticket.id}`,
+					'email': `${user.get('email')}`,
+					'amount': `${ticketPrice}`
+				}, {
+					headers: {
+						"Authorization": `Bearer ${secret}`,
+						"Content-Type": "application/json"
+					}
+				});
+	
+				const d = res.data
+				const authorization_url = d.data.authorization_url;
+				const access_code = d.data.access_code;
+				const message = d.message;
+	
+				ticket.set('authorization_url', authorization_url);
+				ticket.set('access_code', access_code);
+				ticket.set('message', message);
+	
+				ticket.save(null, { useMasterKey: true });
+			} catch (error) {
+				throw error;
+			}
+			
 		}
 	}
 }

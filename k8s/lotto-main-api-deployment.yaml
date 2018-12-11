@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: lotto-main-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       component: main-server
@@ -15,5 +15,26 @@ spec:
       containers:
       - name: main-server
         image: mrsmith9ja/lotto-main-api
+        env:
+          - name: DB_HOST
+            value: mongo-cluster-ip-service
+          - name: DB_NAME
+            value: lotto
+          - name: DB_PORT
+            value: "27017"
+          - name: APP_ID
+            value: "abcd"
+          - name: redisURL
+            value: live-query-redis-cluster-ip-service
+          - name: redisPort
+            value: "6379" 
+          - name: PARSE_MOUNT
+            value: api
+          - name: PROD
+            value: "true"
+          - name: MASTER_KEY
+            value: efg
+          - name: PORT
+            value: "3000"
         ports:
           - containerPort: 3000

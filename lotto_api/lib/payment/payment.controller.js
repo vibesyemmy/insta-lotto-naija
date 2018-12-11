@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const secret = process.env.SECRET_KEY;
+const secret = process.env.SECRET_KEY || 'sk_test_6dfbccfd9d90b44c0b0a48af63fb9c649faee59e' ;
 const axios = require('axios');
 const PORT = process.env.PORT || 3000,
 mountPath = process.env.PARSE_MOUNT || 'api',

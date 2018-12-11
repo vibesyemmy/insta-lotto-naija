@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: live-query-redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: live-query-redis
+  template:
+    metadata:
+      labels: 
+        component: live-query-redis
+    spec:
+      containers:
+        - name: live-query-redis
+          image: redis:5-alpine3.8
+          ports:
+            - containerPort: 6379
