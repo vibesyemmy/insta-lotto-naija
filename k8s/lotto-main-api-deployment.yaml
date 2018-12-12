@@ -29,11 +29,14 @@ spec:
           - name: redisPort
             value: "6379" 
           - name: PARSE_MOUNT
-            value: api
+            value: v1
           - name: PROD
             value: "true"
           - name: MASTER_KEY
-            value: efg
+            valueFrom:
+              secretKeyRef:
+                name: lottomasterkey
+                key: MASTER_KEY
           - name: PORT
             value: "3000"
         ports:

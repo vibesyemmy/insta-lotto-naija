@@ -53,7 +53,7 @@ const dashboard = new ParseDashboard({
 	}]
 });
 
-app.use('/api', api);
+app.use(`/${mountPath}`, api);
 app.use('/server/dashboard', dashboard);
 app.use('/payment', paymentRoutes);
 
