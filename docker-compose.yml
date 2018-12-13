@@ -13,7 +13,8 @@ services:
       -  APP_ID=abcd
       -  MASTER_KEY=efg
       -  SERVER_URL=localhost
-      -  redisURL=redis-server:6379
+      -  redisURL=redis-server
+      -  redisPort=6379
       -  PORT=3030
     ports: 
       - "3030:3030"
@@ -25,7 +26,8 @@ services:
       -  APP_ID=abcd
       -  MASTER_KEY=efg
       -  HOST_NAME=localhost
-      -  redisURL=redis-server:6379
+      -  redisURL=redis-server
+      -  redisPort=6379
       -  PARSE_MOUNT=api
       -  PROD=false
     ports: 

@@ -29,15 +29,17 @@ export class ParseService {
   userObservable: Observable<Parse.User> = this.userSubject.asObservable();
   authObservable: Observable<AuthResponse> = this.authSubject.asObservable();
 
-  constructor() {
+  constructor() {}
+
+  initialize(inProd: boolean = false) {
     const params: ParseParams = {
       appId: "abcd",
-      serverUrl:  this.getUrl()
+      serverUrl:  this.getUrl(inProd)
     }
     console.log(params);
     Parse.initialize(params.appId);
     Parse.serverURL = params.serverUrl;
-    Parse.liveQueryServerURL = "ws://localhost:3030";
+    Parse.liveQueryServerURL = this.getLiveUrl(inProd);
   }
 
   getUser(): Parse.User {
@@ -79,7 +81,6 @@ export class ParseService {
       this.userSubject.next(user);
     } catch (error) {
       this.userSubject.error(error);
-      console.error(error);
     }
   }
   async save(obj: Parse.Object) {
@@ -91,7 +92,10 @@ export class ParseService {
     }
   }
 
-  getUrl(): string {
-    return "http://localhost:3000/api";
+  getUrl(inProd: boolean): string {
+    return inProd ? "/api/v1" : "https://192.168.99.100/api/v1";
+  }
+  getLiveUrl(inProd: boolean): string {
+    return inProd ? "/live" : "wss://192.168.99.100/live";
   }
 }

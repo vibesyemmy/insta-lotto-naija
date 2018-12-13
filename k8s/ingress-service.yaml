@@ -13,11 +13,11 @@ spec:
             backend:
               serviceName: user-client-cluster-ip-service
               servicePort: 80
-          - path: /api/
+          - path: /api
             backend:
               serviceName: lotto-main-api-cluster-ip-service
               servicePort: 3000
-          - path: /live/
+          - path: /live
             backend:
               serviceName: lotto-live-query-api-cluster-ip-service
               servicePort: 3030

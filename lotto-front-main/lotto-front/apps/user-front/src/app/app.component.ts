@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { ParseService, TicketService, LoginRequest, AuthResponse } from '@lotto-front/shared';
 import { environment } from '../environments/environment';
-import * as Parse from 'parse';
-import { ParseParams, Ticket, TicketResponse } from '@lotto-front/model';
+import { Ticket, TicketResponse } from '@lotto-front/model';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -36,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   inflight = false;
 
-  isLoggedIn = this.ps.getUser() != null ? true : false;
+  isLoggedIn = false;
 
   constructor(
     private ps: ParseService,
@@ -45,6 +44,11 @@ export class AppComponent implements OnInit, OnDestroy {
     private modalService: BsModalService,
     fb: FormBuilder
     ) {
+      const inProd = environment.production;
+      this.ps.initialize(inProd);
+      this.ts.initialize();
+      this.isLoggedIn = this.ps.getUser() != null ? true : false;
+
       this.loginForm = fb.group({
         email: [null, Validators.compose([Validators.required, Validators.email])],
         password: [null, Validators.required]

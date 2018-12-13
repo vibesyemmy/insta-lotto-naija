@@ -26,13 +26,16 @@ export class TicketService {
 
   recentWinningTickets: Ticket[] = [];
 
-  constructor(private toastr: ToastrService) {
+  constructor(private toastr: ToastrService) {}
+
+  initialize() {
     this.getRecentTickets();
     this.subscribeToRecentTickets();
   }
 
   async getRecentTickets() {
     const rQuery = new Parse.Query(ParseTicket);
+    rQuery.equalTo('paid', true);
     rQuery.limit(3);
     rQuery.descending("createdAt");
     try {
@@ -52,6 +55,7 @@ export class TicketService {
 
   subscribeToRecentTickets() {
     const rQuery = new Parse.Query(ParseTicket);
+    rQuery.equalTo('paid', true);
     const subscription = rQuery.subscribe();
 
     subscription.on('create', (ticket) => {
