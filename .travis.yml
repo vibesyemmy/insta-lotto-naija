@@ -6,7 +6,7 @@ env:
   global:
     - TAG=$(git describe --abbrev=0 --tags)
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
-before_install:
+before_deploy:
   - openssl aes-256-cbc -K $encrypted_0c35eebf403c_key -iv $encrypted_0c35eebf403c_iv -in service-account.json.enc -out service-account.json -d
   - curl https://sdk.cloud.google.com | bash > /dev/null;
   - source $HOME/google-cloud-sdk/path.bash.inc
@@ -23,4 +23,4 @@ deploy:
   script: bash ./deploy.sh
   on:
     all_branches: true
-    condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+
+    condition: $TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+
