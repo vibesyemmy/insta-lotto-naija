@@ -13,8 +13,8 @@ before_deploy:
   - gcloud components update kubectl
   - gcloud auth activate-service-account --key-file service-account.json
   - gcloud config set project insta-lotto-nigeria
-  - gcloud config set compute/zone europe-west1-c
-  - gcloud container clusters get-credentials insta-lotto-k8s-cluster
+  - gcloud config set compute/zone us-central1-a
+  - gcloud container clusters get-credentials insta-lotto-k8s
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 deploy:

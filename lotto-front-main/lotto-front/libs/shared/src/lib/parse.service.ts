@@ -93,7 +93,7 @@ export class ParseService {
   }
 
   getUrl(inProd: boolean): string {
-    return inProd ? `https://${document.location.hostname}/api/v1` : "https://192.168.99.100/api/v1";
+    return inProd ? `/api/v1` : "https://192.168.99.100/api/v1";
   }
   getLiveUrl(inProd: boolean): string {
     return inProd ? `wss://${document.location.hostname}/live` : "wss://192.168.99.100/live";
