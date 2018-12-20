@@ -1,12 +1,12 @@
-apiVersion: certmanager.k8s.io/v1alpha1
+apiVersion: certmanager.k8s.io/v1beta1
 kind: Certificate
 metadata:
   name: insta-lotto-naija-ml-tls
-  namespace: default
 spec:
   secretName: insta-lotto-naija-ml
   issuerRef:
     name: letsencrypt-prod
+    kind: ClusterIssuer
   commonName: insta-lotto-naija.ml
   dnsNames:
     - insta-lotto-naija.ml
