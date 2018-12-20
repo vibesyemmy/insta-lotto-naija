@@ -40,7 +40,6 @@ $title-size: 40px;
     }
   }
   .lotto-entry {
-    padding: 10px;
     border: 1px solid #ddd;
     width: $box-size + 9;
     height: $box-size + 9;
@@ -53,13 +52,19 @@ $title-size: 40px;
     @include respond-to(medium-screens) {
       width: $box-size;
       height: $box-size;
+      padding: 0px;
       font-size: $input-ont-size;
     }
 
     @include respond-to(handhelds) {
       width: $box-size - 8;
       height: $box-size - 8;
+      padding: 0px;
       font-size: $input-ont-size - 10;
+    }
+
+    @include respond-to(wide-screens){
+      padding: 10px;
     }
   }
   .picker {
