@@ -17,9 +17,13 @@ spec:
     - host: insta-lotto-naija.ml
       http:
         paths:
-          - path: /
+          - path: /app
             backend:
               serviceName: user-client-cluster-ip-service
+              servicePort: 80
+          - path: /
+            backend:
+              serviceName: lotto-landing-cluster-ip-service
               servicePort: 80
           - path: /api
             backend:
@@ -33,9 +37,13 @@ spec:
     - host: www.insta-lotto-naija.ml
       http:
         paths:
-          - path: /
+          - path: /app
             backend:
               serviceName: user-client-cluster-ip-service
+              servicePort: 80
+          - path: /
+            backend:
+              serviceName: lotto-landing-cluster-ip-service
               servicePort: 80
           - path: /api
             backend:

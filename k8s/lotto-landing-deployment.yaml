@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lotto-landing-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: landing
+  template:
+    metadata:
+      labels:
+        component: landing
+    spec:
+      containers:
+      - name: client
+        image: mrsmith9ja/lotto-landing
+        ports:
+          - containerPort: 80
