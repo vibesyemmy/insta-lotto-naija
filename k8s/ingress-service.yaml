@@ -12,6 +12,7 @@ spec:
     - hosts:
         - insta-lotto-naija.ml
         - www.insta-lotto-naija.ml
+        - user.insta-lotto-naija.ml
       secretName: insta-lotto-naija-ml
   rules:
     - host: user.insta-lotto-naija.ml

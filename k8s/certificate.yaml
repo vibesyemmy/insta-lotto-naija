@@ -11,6 +11,7 @@ spec:
   dnsNames:
     - insta-lotto-naija.ml
     - www.insta-lotto-naija.ml
+    - user.insta-lotto-naija.ml
   acme:
     config:
       - http01: 
@@ -18,3 +19,4 @@ spec:
         domains:
           - insta-lotto-naija.ml
           - www.insta-lotto-naija.ml
+          - user.insta-lotto-naija.ml
