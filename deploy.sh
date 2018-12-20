@@ -31,3 +31,4 @@ kubectl apply -f k8s
 kubectl set image deployments/lotto-main-deployment main-server=mrsmith9ja/lotto-main-api:$TAG
 kubectl set image deployments/lotto-live-api-deployment live-query-server=mrsmith9ja/lotto-live-api:$TAG
 kubectl set image deployments/user-ui-deployment client=mrsmith9ja/lotto-user-ui:$TAG
+kubectl set image deployments/lotto-landing-deployment client=mrsmith9ja/lotto-landing:$TAG
