@@ -2,7 +2,7 @@
 
 build_user_ui () {
     echo Build user ui
-    cd lotto-front-main/lotto-front && ng b --prod user-front --base-href app
+    cd lotto-front-main/lotto-front && ng b --prod user-front 
     cd ../../
 }
 
