@@ -81,7 +81,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (!res.inFlight) {
           if (res.error === undefined) {
             // console.log(res);
-            location.href = '/app';
+            location.href = '/';
           } else {
             this.toastr.error(res.error.message,"Oops!", {
               closeButton: true,
