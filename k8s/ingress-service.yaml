@@ -15,6 +15,18 @@ spec:
         - user.insta-lotto-naija.ml
       secretName: insta-lotto-naija-ml
   rules:
+    - host: api.insta-lotto-naija.ml
+      http:
+        paths:
+          - backend:
+              serviceName: lotto-main-api-cluster-ip-service
+              servicePort: 3000
+    - host: live.insta-lotto-naija.ml
+      http:
+        paths:
+          - backend:
+              serviceName: lotto-live-query-api-cluster-ip-service
+              servicePort: 3030
     - host: user.insta-lotto-naija.ml
       http:
         paths:
