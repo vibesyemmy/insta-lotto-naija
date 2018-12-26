@@ -12,6 +12,8 @@ spec:
     - insta-lotto-naija.ml
     - www.insta-lotto-naija.ml
     - user.insta-lotto-naija.ml
+    - api.insta-lotto-naija.ml
+    - live.insta-lotto-naija.ml
   acme:
     config:
       - http01: 
