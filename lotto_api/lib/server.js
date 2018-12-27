@@ -24,6 +24,12 @@ const paymentRoutes = require('./payment/payment.router');
 
 // App
 const app = express();
+app.use((_, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+  	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  	next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: false

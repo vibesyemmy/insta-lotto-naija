@@ -5,8 +5,15 @@ var ParseServer = require('parse-server').ParseServer;
 var app = express();
 app.use(cors());
 
+
+app.use((_, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // We include the lines below so that we can hit `/` and it passes the Elastic Beanstalk Health Check
-app.get('/', function(req, res) {
+app.get('/', function(_, res) {
   res.status(200).send('Make sure to star the parse-server repo on GitHub!');
 });
 
