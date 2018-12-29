@@ -16,8 +16,7 @@ const ParseServer = require('parse-server').ParseServer,
 const dbName = process.env.DB_NAME || 'lotto';
 const dbHost = process.env.DB_HOST || 'localhost';
 const dbPort = process.env.DB_PORT || '27017';
-const mongoDB = `mongodb://${dbHost}:${dbPort}/${dbName}`,
-	ParseDashboard = require('parse-dashboard');
+const mongoDB = `mongodb://${dbHost}:${dbPort}/${dbName}`;
 const paymentRoutes = require('./payment/payment.router');
 
 // Constants
@@ -49,19 +48,7 @@ const api = new ParseServer({
 	}
 });
 
-const dashboard = new ParseDashboard({
-	"allowInsecureHTTP": true,
-	'apps': [{
-		'serverURL': serverURL,
-		'appId': APP_ID,
-		'masterKey': MASTER_KEY,
-		'appName': 'Lotto'
-	}]
-});
-
 app.use(`/${mountPath}`, api);
-app.use('/server/dashboard', dashboard);
 app.use('/payment', paymentRoutes);
 
 createServer(app).listen(PORT);
-// var parseLiveQueryServer = ParseServer.createLiveQueryServer(httpServer);

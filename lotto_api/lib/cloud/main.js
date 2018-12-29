@@ -8,3 +8,25 @@ Parse.Cloud.afterSave('Ticket', TicketController.afterSave(Parse));
 Parse.Cloud.beforeSave('Draw', DrawController.beforeSave(Parse));
 Parse.Cloud.beforeSave('Payment', PaymentController.beforeSave(Parse));
 Parse.Cloud.job('incrementTicketDrawCount', TicketController.incrementDrawCount(Parse));
+
+Parse.Cloud.afterSave(Parse.User, async (req) => {
+    const user = req.object;
+
+    if (!user.existed()) {
+        const roleQuery = new Parse.Query(Parse.Role);
+        roleQuery.equalTo('name', 'user');
+
+        try {
+            const role = await roleQuery.first({useMasterKey: true});
+            if (!role) throw new Error('Role not found');
+
+            const relation = role.relation('users');
+
+            relation.add(user); 
+
+            await role.save(null, {useMasterKey: true});
+        } catch (error) {
+            throw error;
+        }
+    }
+});
