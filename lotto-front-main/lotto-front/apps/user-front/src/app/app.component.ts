@@ -98,6 +98,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.ts.closeSubscription();
     for (const d of this.compDisposable) {
       d.unsubscribe();
     }

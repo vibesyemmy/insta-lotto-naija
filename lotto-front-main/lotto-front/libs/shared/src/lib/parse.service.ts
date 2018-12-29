@@ -93,7 +93,7 @@ export class ParseService {
   }
 
   getUrl(inProd: boolean): string {
-    return inProd ? `https://api.insta-lotto-naija.ml/api/v1` : "https://192.168.99.100/api/v1";
+    return inProd ? `https://api.insta-lotto-naija.ml/v1` : "https://192.168.99.100/api/v1";
   }
   getLiveUrl(inProd: boolean): string {
     return inProd ? `wss://live.insta-lotto-naija.ml/live` : "wss://192.168.99.100/live";
