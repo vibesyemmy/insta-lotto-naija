@@ -48,21 +48,26 @@ Controller.beforeSave = (Parse) => {
         const tQ = new Parse.Query('Payment');
         tQ.equalTo('objectId', ticketId);
         tQ.include('player');
-        const ticket = await tQ.first();
+        try {
+            const ticket = await tQ.first();
 
-        if (!ticket) {
-            throw new Error("Ticket not found");
+            if (!ticket) {
+                throw new Parse.Error(404, "Ticket not found");
+            }
+            const user = ticket.get('player');
+            const paymentACL = new Parse.ACL();
+            paymentACL.setPublicReadAccess(false);
+            paymentACL.setPublicWriteAccess(false);
+            paymentACL.setRoleWriteAccess('admin', true);
+            paymentACL.setRoleReadAccess('admin', true);
+            paymentACL.setWriteAccess(user, false);
+            paymentACL.setReadAccess(user, true);
+
+            payment.setACL(paymentACL);
+        } catch (error) {
+            throw error;
         }
-        const user = ticket.get('player');
-        const paymentACL = new Parse.ACL();
-        paymentACL.setPublicReadAccess(false);
-        paymentACL.setPublicWriteAccess(false);
-        paymentACL.setRoleWriteAccess('admin', true);
-        paymentACL.setRoleReadAccess('admin', true);
-        paymentACL.setWriteAccess(user, false);
-        paymentACL.setReadAccess(user, true);
-
-        payment.setACL(paymentACL);
+        
     }
 }
 

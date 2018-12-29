@@ -8,8 +8,7 @@
   },
   "classLevelPermissions": {
     "find": {
-      "role:admin": true,
-      "role:user": true
+      "*": true
     },
     "get": {
       "role:admin": true,

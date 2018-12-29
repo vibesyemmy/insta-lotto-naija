@@ -79,20 +79,19 @@ Controller.beforeSave = (Parse) => {
 		const user = req.user,
 			ticket = req.object;
 		try {
-			if (!ticket) throw new Parse.Error('You cannot save a null ticket');
+			if (!ticket) throw new Parse.Error(400, 'You cannot save a null ticket');
 
 			// New Ticket
 			if (!ticket.existed()) {
-				if (!user) throw new Parse.Error('You must be logged in to create a ticket');
+				if (!user) throw new Parse.Error(401, 'You must be logged in to create a ticket');
 				// find ticket with picked number
 				// TODO: Limit search to the past three days
 				const sameNumberQ = new Parse.Query('Ticket');
 				sameNumberQ.equalTo('number', ticket.get('number'));
 
 				const t = await sameNumberQ.first();
-				console.log(t);
 				if (!isValidTicket(t)) {
-					throw new Error('These numbers have been picked');
+					throw new Parse.Error(400, 'These numbers have been picked');
 				} else {
 					const acl = new Parse.ACL();
 					acl.setPublicReadAccess(true);

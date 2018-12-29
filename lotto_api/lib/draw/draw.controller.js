@@ -27,8 +27,8 @@ Controller.beforeSave = (Parse) => {
 			// Pick a random ticket as winner
 			const ticket = TicketController.pick(Parse);
 
-			if (!draw) throw new Parse.Error('You cannot save a null draw');
-			if (!ticket) throw new Parse.Error('No valid ticket found.');
+			if (!draw) throw new Parse.Error(400, 'You cannot save a null draw');
+			if (!ticket) throw new Parse.Error(400, 'No valid ticket found.');
 
 			const startOfTheDay = moment().startOf('d').toDate();
 			const Q = new Parse.Query('Draw');
@@ -36,7 +36,7 @@ Controller.beforeSave = (Parse) => {
 			const count = await Q.count();
 
 			if (count >= maxDrawCount) {
-				throw new Error('Too many draws made already');
+				throw new Parse.Error('Too many draws made already');
 			} else {
 				if (!draw.existed()) {
 					const acl = new Parse.ACL();
