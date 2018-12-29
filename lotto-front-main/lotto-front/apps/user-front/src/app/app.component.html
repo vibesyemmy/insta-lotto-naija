@@ -36,7 +36,7 @@
                 <span class="help-block"></span>
             </div>
             <!-- <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div> -->
-            <button [disabled]="loginForm.invalid" type="submit" class="btn btn-success btn-block">Login</button>
+            <button [disabled]="loginForm.invalid" type="submit" class="btn btn-success btn-block">Sign In</button>
             <a href="/forgot/" class="btn btn-default btn-block">Help to login</a>
           </form>
         </div>
@@ -56,7 +56,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="well">
-          <form [formGroup]="registerForm" id="loginForm" method="POST" action="/login/" novalidate="novalidate">
+          <form [formGroup]="registerForm" id="loginForm" (ngSubmit)="doSignUp()">
             <div class="form-group">
                 <label for="username" class="control-label">Email</label>
                 <input formControlName="email" type="email" class="form-control" id="username" name="username" title="Please enter you username" placeholder="example@gmail.com">
@@ -75,7 +75,7 @@
               <span class="help-block"></span>
           </div>
             <!-- <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div> -->
-            <button [disabled]="registerForm.invalid" type="submit" class="btn btn-success btn-block">Login</button>
+            <button [disabled]="registerForm.invalid" type="submit" class="btn btn-success btn-block">Sign Up</button>
             <a href="/forgot/" class="btn btn-default btn-block">Help to login</a>
           </form>
         </div>
