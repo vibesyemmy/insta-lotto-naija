@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
-import { ParseService, TicketService, LoginRequest, AuthResponse } from '@lotto-front/shared';
+import { ParseService, TicketService, LoginRequest, AuthResponse, RegisterRequest } from '@lotto-front/shared';
 import { environment } from '../environments/environment';
 import { Ticket, TicketResponse } from '@lotto-front/model';
 import { Observable, Subscription } from 'rxjs';
@@ -110,6 +110,15 @@ export class AppComponent implements OnInit, OnDestroy {
       password: this.loginForm.get('password').value
     }
     this.ps.login(req);
+  }
+
+  doSignUp() {
+    const req: RegisterRequest = {
+      email: this.registerForm.get('email').value,
+      password: this.registerForm.get('password').value,
+      phone: this.registerForm.get('phone').value
+    }
+    this.ps.signUp(req)
   }
 
   handleToolbarAction(action: string) {

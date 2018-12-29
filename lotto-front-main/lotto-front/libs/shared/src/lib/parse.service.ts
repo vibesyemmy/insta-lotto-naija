@@ -51,7 +51,7 @@ export class ParseService {
       inFlight: true,
       error: undefined
     };
-    this.authSubject.next(res)
+    this.authSubject.next(res);
     try {
       const user = await Parse.User.logIn(req.email, req.password);
       this.userSubject.next(user);
@@ -71,6 +71,11 @@ export class ParseService {
   }
 
   async signUp(req: RegisterRequest) {
+    const res: AuthResponse = {
+      inFlight: true,
+      error: undefined
+    };
+    this.authSubject.next(res);
     const user = new Parse.User();
     user.setUsername(req.email);
     user.setPassword(req.password);
@@ -78,9 +83,18 @@ export class ParseService {
     user.set('phone', req.phone);
     try {
       await user.signUp();
-      this.userSubject.next(user);
+      this.userSubject.next(user);this.authSubject.next({
+        ...res,
+        inFlight: false,
+        error: undefined
+      });
     } catch (error) {
       this.userSubject.error(error);
+      this.authSubject.next({
+        ...res,
+        inFlight: false,
+        error: error
+      });
     }
   }
   async save(obj: Parse.Object) {
