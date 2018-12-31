@@ -1,0 +1,55 @@
+{
+    "className": "Payment",
+    "fields": {
+      "event": {
+        "type": "String"
+      },
+      "id": {
+        "type": "Number"
+      },
+      "domain": {
+          "type": "String"
+      },
+      "status": {
+        "type": "String"
+      },
+      "reference": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "Number"    
+      },
+      "gateway_response": {
+          "type": "String"
+      },
+      "paid_at": {
+          "type": "Date"
+      },
+      "charge_created_at": {
+          "type": "Date"
+      },
+      "channel": {
+          "type": "String"
+      },
+      "currency": {
+          "type": "String"
+      },
+      "ip_address": {
+          "type": "String"
+      }
+    },
+    "classLevelPermissions": {
+      "find": {
+        "role:admin": true
+      },
+      "get": {
+        "role:admin": true
+      },
+      "create": {},
+      "update": {},
+      "delete": {
+        "role:admin": true
+      },
+      "addField": {}
+    }
+  }

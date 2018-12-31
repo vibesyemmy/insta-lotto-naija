@@ -49,7 +49,7 @@ Controller.beforeSave = (Parse) => {
         tQ.equalTo('objectId', ticketId);
         tQ.include('player');
         try {
-            const ticket = await tQ.first();
+            const ticket = await tQ.first({useMasterKey: true});
 
             if (!ticket) {
                 throw new Parse.Error(404, "Ticket not found");

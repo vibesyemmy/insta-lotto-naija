@@ -33,7 +33,6 @@ router.post('/', async (req, res) => {
                 status: event.data.status,
                 reference: event.data.reference,
                 amount: event.data.amount,
-                message: event.data.message,
                 gateway_response: event.data.gateway_response,
                 paid_at: event.data.paid_at,
                 charge_created_at: event.data.created_at,
@@ -43,10 +42,11 @@ router.post('/', async (req, res) => {
             });
             res.sendStatus(200);
         } catch (error) {
-            console.log(error);
-            res.sendStatus(400);
+            console.error(error);
+            res.sendStatus(404);
         }
     } else {
+        console.error('Header is bad')
         res.sendStatus(400);
     }
 });
