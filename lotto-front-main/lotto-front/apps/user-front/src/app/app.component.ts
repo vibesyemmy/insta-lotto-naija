@@ -68,10 +68,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this.disposable = this.ts.recentObservable.subscribe(
       () => {},
       (err) => {
-        this.toastr.error(err,"Oops!", {
-          closeButton: true,
-          positionClass: 'toast-top-center'
-        })
+        if (err .message === 'Invalid session token') {
+          const appId = environment.parseParams.appId;
+          localStorage.removeItem(`Parse/${appId}/currentUser`);
+          location.href = '/';
+        } else {
+          this.toastr.error(err.message,"Oops!", {
+            closeButton: true,
+            positionClass: 'toast-top-center'
+          });
+        }
       }
     )
     this.compDisposable.push(this.disposable);
