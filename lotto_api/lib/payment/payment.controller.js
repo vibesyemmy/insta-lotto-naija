@@ -45,7 +45,7 @@ Controller.beforeSave = (Parse) => {
     return async (req) => {
         const payment = req.object;
         const ticketId = payment.get('reference');
-        const tQ = new Parse.Query('Payment');
+        const tQ = new Parse.Query('Ticket');
         tQ.equalTo('objectId', ticketId);
         tQ.include('player');
         try {
