@@ -34,8 +34,14 @@ router.post('/', async (req, res) => {
                 reference: event.data.reference,
                 amount: event.data.amount,
                 gateway_response: event.data.gateway_response,
-                paid_at: event.data.paid_at,
-                charge_created_at: event.data.created_at,
+                paid_at: {
+                    "__type": "Date",
+                    "iso": event.data.paid_at
+                },
+                charge_created_at: {
+                    "__type": "Date",
+                    "iso": event.data.created_at
+                },
                 channel: event.data.channel,
                 currency: event.data.currency,
                 ip_address: event.data.ip_address
