@@ -81,4 +81,28 @@ Controller.beforeSave = (Parse) => {
     }
 }
 
+Controller.afterSave = (Parse) => {
+    return async (req) => {
+        const payment = req.object;
+        const ticketId = payment.get('reference');
+        const tQ = new Parse.Query('Ticket');
+        tQ.equalTo('objectId', ticketId);
+
+        try {
+            const ticket = await tQ.first({useMasterKey: true});
+
+            if (!ticket) {
+                throw new Parse.Error(404, "Ticket not found");
+            }
+
+            if (payment.has('event') && payment.get('event') === 'charge.success' && !ticket.get('paid')) {
+                ticket.set('paid', true);
+                await ticket.save(null, {useMasterKey: true});
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+}
+
 module.exports = Controller;
