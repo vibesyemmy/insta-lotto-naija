@@ -46,6 +46,8 @@ router.post('/', async (req, res) => {
             console.log(error);
             res.sendStatus(400);
         }
+    } else {
+        res.sendStatus(400);
     }
 });
 // router.put('/:id', Controller.update);
