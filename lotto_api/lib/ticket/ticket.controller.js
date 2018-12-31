@@ -104,6 +104,7 @@ Controller.beforeSave = (Parse) => {
 					ticket.set('picked', false);
 					ticket.set('drawCount', 0);
 					ticket.set('player', user);
+					ticket.set('paid', false);
 				}
 			}
 		} catch (error) {

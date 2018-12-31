@@ -6,6 +6,7 @@ export interface Ticket {
   drawCount: number;
   picked: boolean;
   createdAt: Date;
+  authorization_url?: string;
 };
 
 export const initTicket: Ticket = {
@@ -26,7 +27,8 @@ export class TicketMapper {
       numbers: input.has("number") ? input.get("number") : "",
       drawCount: input.has("drawCount") ? input.get("drawCount") : 0,
       picked: input.has("picked") ? input.get("picked") : false,
-      createdAt: input.has("createdAt") ? input.get("createdAt") : Date()
+      createdAt: input.has("createdAt") ? input.get("createdAt") : Date(),
+      authorization_url: input.get('authorization_url')
     }
   }
 }

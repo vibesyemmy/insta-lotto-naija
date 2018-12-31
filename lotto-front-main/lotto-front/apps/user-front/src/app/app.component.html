@@ -83,3 +83,20 @@
   </div>
   </div>
 </ng-template>
+
+<ng-template #ticketPayment>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Pay For Ticket</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>{{boughtTicket.numbers}}</h3>
+        <a href="{{boughtTicket.authorization_url}}" class="btn btn-success" target="_blank">Pay For Draw Ticket</a>
+      </div>
+    </div>
+  </div>
+</ng-template>

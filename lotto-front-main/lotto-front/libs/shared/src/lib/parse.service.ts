@@ -36,7 +36,6 @@ export class ParseService {
       appId: "abcd",
       serverUrl:  this.getUrl(inProd)
     }
-    console.log(document.location.hostname);
     Parse.initialize(params.appId);
     Parse.serverURL = params.serverUrl;
     Parse.liveQueryServerURL = this.getLiveUrl(inProd);
@@ -107,7 +106,7 @@ export class ParseService {
   }
 
   getUrl(inProd: boolean): string {
-    return inProd ? `https://api.insta-lotto-naija.ml/v1` : "https://192.168.99.100/api/v1";
+    return `https://api.insta-lotto-naija.ml/v1`;
   }
   getLiveUrl(inProd: boolean): string {
     return inProd ? `wss://live.insta-lotto-naija.ml/live` : "wss://192.168.99.100/live";

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { ParseService, TicketService, LoginRequest, AuthResponse, RegisterRequest } from '@lotto-front/shared';
 import { environment } from '../environments/environment';
-import { Ticket, TicketResponse } from '@lotto-front/model';
+import { Ticket, TicketResponse, initTicket } from '@lotto-front/model';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -29,6 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @ViewChild('login') public loginRef: TemplateRef<any>;
   @ViewChild('register') public registerRef: TemplateRef<any>;
+  @ViewChild('ticketPayment') public payRef: TemplateRef<any>;
 
   loginForm: FormGroup;
   registerForm: FormGroup;
@@ -36,6 +37,8 @@ export class AppComponent implements OnInit, OnDestroy {
   inflight = false;
 
   isLoggedIn = false;
+
+  boughtTicket = initTicket;
 
   constructor(
     private ps: ParseService,
@@ -95,6 +98,16 @@ export class AppComponent implements OnInit, OnDestroy {
     )
 
     this.compDisposable.push(authDisposable);
+
+    const paymentRequestDisposable = this.ts.boughtTicketObservable.subscribe(
+      (ticket: Ticket) => {
+        this.boughtTicket = ticket;
+        this.bsModalRef = this.modalService.show(this.payRef, this.config);
+      },
+      error => console.log(error)
+    );
+
+    this.compDisposable.push(paymentRequestDisposable);
   }
 
   ngOnDestroy() {

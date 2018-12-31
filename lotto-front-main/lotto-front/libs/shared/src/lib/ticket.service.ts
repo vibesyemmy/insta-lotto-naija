@@ -24,6 +24,9 @@ export class TicketService {
     })
   );
 
+  private boughtTicketSubject: Subject<Ticket> = new Subject();
+  readonly boughtTicketObservable: Observable<Ticket> = this.boughtTicketSubject.asObservable();
+
   recentWinningTickets: Ticket[] = [];
   subscription: any;
 
@@ -125,6 +128,14 @@ export class TicketService {
           closeButton: true,
           positionClass: 'toast-top-center'
         });
+
+        const boughtTicketQuery = new Parse.Query('Ticket');
+        boughtTicketQuery.equalTo('number', num);
+
+        const parseBoughtTicket = await boughtTicketQuery.first();
+
+        this.boughtTicketSubject.next(ticketMapper.map(parseBoughtTicket));
+
       } catch (error) {
         this.toastr.error(error.message,"Oops!", {
           closeButton: true,
