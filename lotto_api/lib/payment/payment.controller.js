@@ -17,27 +17,37 @@ Controller.webhook = async (req, res) => {
     const hash = crypto.createHmac('sha512', secret).update(JSON.stringify(event)).digest('hex');
 
     if (hash == req.headers['x-paystack-signature']) {
+        const opts = {
+            event: event.event,
+            tranx_id: event.data.id,
+            domain: event.data.domain,
+            status: event.data.status,
+            reference: event.data.reference,
+            amount: event.data.amount,
+            gateway_response: event.data.gateway_response,
+            paid_at: {
+                "__type": "Date",
+                "iso": event.data.paid_at
+            },
+            charge_created_at: {
+                "__type": "Date",
+                "iso": event.data.created_at
+            },
+            channel: event.data.channel,
+            currency: event.data.currency,
+            ip_address: event.data.ip_address
+        };
+        console.info("Request options", opts);
         try {
-            await instance.post(`http://localhost:${PORT}/${mountPath}/classes/Payment`,{
-                event: event.event,
-                id: event.data.id,
-                domain: event.data.domain,
-                status: event.data.status,
-                reference: event.data.reference,
-                amount: event.data.amount,
-                message: event.data.message,
-                gateway_response: event.data.gateway_response,
-                paid_at: event.data.paid_at,
-                charge_created_at: event.data.created_at,
-                channel: event.data.channel,
-                currency: event.data.currency,
-                ip_address: event.data.ip_address
-            });
+            await instance.post(`http://localhost:${PORT}/${mountPath}/classes/Payment`, opts);
             res.sendStatus(200);
         } catch (error) {
-            console.log(error);
-            res.sendStatus(400);
+            console.error(error.message);
+            res.sendStatus(404);
         }
+    } else {
+        console.error('Header is bad')
+        res.sendStatus(400);
     }
 }
 
