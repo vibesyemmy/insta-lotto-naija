@@ -14,7 +14,8 @@ export const initTicket: Ticket = {
   numbers: "23456",
   drawCount: 0,
   picked: false,
-  createdAt: null
+  createdAt: null,
+  authorization_url: ''
 };
 
 export const ParseTicket: Parse.Object = Parse.Object.extend('Ticket')

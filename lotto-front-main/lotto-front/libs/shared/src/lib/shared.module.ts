@@ -9,11 +9,13 @@ import { RecentWinnerComponent } from './recent-winner/recent-winner.component';
 import { TicketStubComponent } from './ticket-stub/ticket-stub.component';
 import { TicketService } from './ticket.service';
 import { RouterModule } from '@angular/router';
+import { PayTicketModalComponent } from './pay-ticket-modal/pay-ticket-modal.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
-  imports: [RouterModule, CommonModule],
-  declarations: [HomeToolbarComponent, BigInputComponent, TicketInfoComponent, RecentTicketComponent, RecentWinnerComponent, TicketStubComponent],
-  exports: [HomeToolbarComponent, BigInputComponent, RecentTicketComponent, RecentWinnerComponent],
+  imports: [RouterModule, CommonModule, MDBBootstrapModule],
+  declarations: [HomeToolbarComponent, BigInputComponent, TicketInfoComponent, RecentTicketComponent, RecentWinnerComponent, TicketStubComponent, PayTicketModalComponent],
+  exports: [HomeToolbarComponent, BigInputComponent, RecentTicketComponent, RecentWinnerComponent, PayTicketModalComponent, MDBBootstrapModule],
   providers: [ParseService, TicketService]
 })
 export class SharedModule {}

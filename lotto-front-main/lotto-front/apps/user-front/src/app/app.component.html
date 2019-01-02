@@ -1,15 +1,18 @@
 <lotto-front-home-toolbar [isLoggedIn]=isLoggedIn (clickAction)="handleToolbarAction($event)"></lotto-front-home-toolbar>
 <div class="container content">
-    <div class="row">
-        <div class="col-sm-12 col-md-9">
-            <router-outlet></router-outlet>
-        </div>
-        <div class="side col-sm-12 col-md-3">
-            <!-- Sticky numbers pane -->
-            <lotto-front-recent-winner></lotto-front-recent-winner>
-            <lotto-front-recent-ticket [tickets]="ticketsObservable | async"></lotto-front-recent-ticket>
-        </div>
-    </div>
+  <div class="row">
+      <div class="col-sm-12 col-md-9">
+          <router-outlet></router-outlet>
+      </div>
+      <div class="side col-sm-12 col-md-3">
+          <!-- Sticky numbers pane -->
+          <lotto-front-recent-winner></lotto-front-recent-winner>
+          <lotto-front-recent-ticket [tickets]="ticketsObservable | async"></lotto-front-recent-ticket>
+      </div>
+  </div>
+  <div *ngIf="inflight" class="loader">
+    <div class="spinner-icon"></div>
+  </div>
 </div>
 <footer></footer>
 
@@ -95,7 +98,7 @@
     <div class="row">
       <div class="col-sm-12">
         <h3>{{boughtTicket.numbers}}</h3>
-        <a href="{{boughtTicket.authorization_url}}" class="btn btn-success" target="_blank">Pay For Draw Ticket</a>
+        <a href="{{boughtTicket.authorization_url}}" class="btn btn-success" target="_blank" (click)="bsModalRef.hide()">Pay For Draw Ticket</a>
       </div>
     </div>
   </div>

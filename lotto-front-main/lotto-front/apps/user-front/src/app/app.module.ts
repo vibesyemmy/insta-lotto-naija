@@ -4,8 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { NxModule } from '@nrwl/nx';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '@lotto-front/shared';
-import { ParseService } from '@lotto-front/shared';
+import { SharedModule, PayTicketModalComponent, ParseService } from '@lotto-front/shared';
 import { UserServiceService } from './user-service.service';
 import { UserGuard } from './user.guard';
 import { ToastrModule } from 'ngx-toastr';
@@ -23,6 +22,7 @@ import { CustomRouterStateSerializer } from './utils/utils';
 import { TitleUpdaterEffects } from './effects/title-updater';
 import { ModalModule, BsDropdownModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MDBBootstrapModule, MDBModalService } from 'angular-bootstrap-md';
 
 const BASE_TITLE = "Lotto | "
 
@@ -55,14 +55,19 @@ const paths = [
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([TitleEffects, TitleUpdaterEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule
+    StoreRouterConnectingModule,
+    MDBBootstrapModule.forRoot()
+  ],
+  entryComponents: [
+    PayTicketModalComponent
   ],
   providers: [
     ParseService,
     UserServiceService,
     UserGuard,
     TitleFacade,
-    { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer }
+    { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
+    MDBModalService
   ],
   bootstrap: [AppComponent]
 })

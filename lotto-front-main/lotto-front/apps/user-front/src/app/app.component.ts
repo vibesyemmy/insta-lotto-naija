@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
-import { ParseService, TicketService, LoginRequest, AuthResponse, RegisterRequest } from '@lotto-front/shared';
+import { ParseService, TicketService, LoginRequest, AuthResponse, RegisterRequest, PayTicketModalComponent } from '@lotto-front/shared';
 import { environment } from '../environments/environment';
 import { Ticket, TicketResponse, initTicket } from '@lotto-front/model';
 import { Observable, Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
 
 @Component({
   selector: 'lotto-root',
@@ -16,6 +17,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'user-front';
   bsModalRef: BsModalRef;
+  modalRef: MDBModalRef;
   config = {
     backdrop: true,
     ignoreBackdropClick: true
@@ -45,6 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private ts: TicketService,
     private toastr: ToastrService,
     private modalService: BsModalService,
+    private mdModalService: MDBModalService,
     fb: FormBuilder
     ) {
       const inProd = environment.production;
@@ -66,12 +69,20 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.disposable = this.ts.recentObservable.subscribe(
-      () => {},
+      (res) => {
+        this.inflight = res.isLoading
+      },
       (err) => {
-        this.toastr.error(err,"Oops!", {
-          closeButton: true,
-          positionClass: 'toast-top-center'
-        })
+        if (err .message === 'Invalid session token') {
+          const appId = environment.parseParams.appId;
+          localStorage.removeItem(`Parse/${appId}/currentUser`);
+          location.href = '/';
+        } else {
+          this.toastr.error(err.message,"Oops!", {
+            closeButton: true,
+            positionClass: 'toast-top-center'
+          });
+        }
       }
     )
     this.compDisposable.push(this.disposable);
@@ -102,7 +113,16 @@ export class AppComponent implements OnInit, OnDestroy {
     const paymentRequestDisposable = this.ts.boughtTicketObservable.subscribe(
       (ticket: Ticket) => {
         this.boughtTicket = ticket;
-        this.bsModalRef = this.modalService.show(this.payRef, this.config);
+        this.modalRef = this.mdModalService.show(PayTicketModalComponent, {
+          backdrop: true,
+          keyboard: false,
+          focus: true,
+          ignoreBackdropClick: true,
+          animated: true,
+          class: 'modal-dialog-centered modal-notify modal-danger'
+        });
+
+        this.modalRef.content.ticket = ticket;
       },
       error => console.log(error)
     );
