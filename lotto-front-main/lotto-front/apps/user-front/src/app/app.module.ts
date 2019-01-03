@@ -33,6 +33,13 @@ const paths = [
     data: {
       title: `${BASE_TITLE}Home`
     }
+  },
+  {
+    path: 'tickets',
+    loadChildren: '@lotto-front/tickets#TicketsModule',
+    data: {
+      title: `${BASE_TITLE}Tickets`
+    }
   }
 ];
 @NgModule({

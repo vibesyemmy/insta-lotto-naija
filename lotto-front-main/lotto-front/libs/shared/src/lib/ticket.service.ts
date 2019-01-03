@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Ticket, ParseTicket, ticketMapper, initTicketResponse, TicketResponse } from '@lotto-front/model';
+import { Ticket, ParseTicket, ticketMapper, initTicketResponse, TicketResponse, TicketsPaged } from '@lotto-front/model';
 import * as Parse from 'parse';
 import { Subject, Observable, of } from 'rxjs';
-import { startWith, map, onErrorResumeNext } from 'rxjs/operators';
+import { startWith, map, onErrorResumeNext, flatMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -11,7 +11,11 @@ import { ToastrService } from 'ngx-toastr';
 export class TicketService {
 
   recentTickets: Ticket[] = [];
+  myTicketsPaged: TicketsPaged;
+
   readonly recent: Subject<Ticket[]> = new Subject();
+  readonly myTickets: Subject<TicketResponse> = new Subject();
+  readonly myTicketsCount: Subject<number> = new Subject();
   readonly recentObservable: Observable<TicketResponse> = this.recent.asObservable().pipe(
     startWith(initTicketResponse),
     map((res: Ticket[]) => {
@@ -22,6 +26,14 @@ export class TicketService {
       }
       return r;
     })
+  );
+
+  readonly myTicketsObservable: Observable<TicketResponse> = this.myTickets.asObservable().pipe(
+    startWith(initTicketResponse)
+  );
+
+  readonly myTicketsCountObservable: Observable<number> = this.myTicketsCount.asObservable().pipe(
+    startWith(0)
   );
 
   private boughtTicketSubject: Subject<Ticket> = new Subject();
@@ -35,6 +47,46 @@ export class TicketService {
   initialize() {
     this.getRecentTickets();
     this.subscribeToRecentTickets();
+  }
+
+  async getMyTicketsCount() {
+    const rQuery = new Parse.Query(ParseTicket);
+    rQuery.equalTo('player', Parse.User.current());
+    let count = 0;
+    try {
+      count = await rQuery.count();
+      this.myTicketsCount.next(count);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async getMyTicketsPaginated(page: number) {
+    const limit = 9;
+    const skip = (page - 1) * limit;
+    const rQuery = new Parse.Query(ParseTicket);
+    rQuery.equalTo('player', Parse.User.current());
+    rQuery.descending("createdAt");
+    rQuery.limit(limit);
+    rQuery.skip(skip);
+    try {
+      const tickets: Parse.Object[] = await rQuery.find();
+      const tx = [];
+      for (const t of tickets) {
+        tx.push(ticketMapper.map(t))
+      }
+      const res: TicketResponse = {
+        tickets: tx,
+        isLoading: false
+      }
+      this.myTickets.next(res);
+    } catch (error) {
+      this.myTickets.next({
+        tickets: [],
+        isLoading: false,
+        error: error
+      })
+    }
   }
 
   async getRecentTickets() {

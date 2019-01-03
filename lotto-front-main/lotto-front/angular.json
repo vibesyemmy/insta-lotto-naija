@@ -219,6 +219,62 @@
           }
         }
       }
+    },
+    "tickets": {
+      "root": "libs/tickets",
+      "sourceRoot": "libs/tickets/src",
+      "projectType": "library",
+      "prefix": "lotto-front",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/tickets/tsconfig.lib.json",
+              "libs/tickets/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/tickets/jest.config.js",
+            "tsConfig": "libs/tickets/tsconfig.spec.json",
+            "setupFile": "libs/tickets/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "pagination": {
+      "root": "libs/pagination",
+      "sourceRoot": "libs/pagination/src",
+      "projectType": "library",
+      "prefix": "lotto-front",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/pagination/tsconfig.lib.json",
+              "libs/pagination/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/pagination/jest.config.js",
+            "tsConfig": "libs/pagination/tsconfig.spec.json",
+            "setupFile": "libs/pagination/src/test-setup.ts"
+          }
+        }
+      }
     }
   },
   "cli": {

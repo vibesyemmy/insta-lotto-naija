@@ -28,6 +28,14 @@
     },
     "model": {
       "tags": []
+    },
+    "tickets": {
+      "tags": []
+    },
+    "pagination": {
+      "tags": [
+        "n"
+      ]
     }
   }
 }
