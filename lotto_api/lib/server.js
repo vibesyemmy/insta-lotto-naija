@@ -13,10 +13,7 @@ const ParseServer = require('parse-server').ParseServer,
 	publicServerURL = PROD ? `https://${hostName}/${mountPath}` : `http://${hostName}:${PORT}/${mountPath}`,
 	serverURL = `http://localhost:${PORT}/${mountPath}`;
 
-const dbName = process.env.DB_NAME || 'lotto';
-const dbHost = process.env.DB_HOST || 'localhost';
-const dbPort = process.env.DB_PORT || '27017';
-const mongoDB = `mongodb://${dbHost}:${dbPort}/${dbName}`;
+const mongoDB = process.env.MONGO_DB;
 const paymentRoutes = require('./payment/payment.router');
 
 // Constants

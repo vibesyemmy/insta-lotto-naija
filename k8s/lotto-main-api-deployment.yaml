@@ -32,6 +32,11 @@ spec:
             value: v1
           - name: PROD
             value: "true"
+          - name: MONGO_DB
+            valueFrom:
+              secretKeyRef:
+                name: mongodbatlas
+                key: MONGO_DB
           - name: MASTER_KEY
             valueFrom:
               secretKeyRef:
@@ -41,3 +46,10 @@ spec:
             value: "3000"
         ports:
           - containerPort: 3000
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "64Mi"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
