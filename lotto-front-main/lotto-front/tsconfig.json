@@ -24,6 +24,12 @@
       ],
       "@lotto-front/model": [
         "libs/model/src/index.ts"
+      ],
+      "@lotto-front/tickets": [
+        "libs/tickets/src/index.ts"
+      ],
+      "@lotto-front/pagination": [
+        "libs/pagination/src/index.ts"
       ]
     }
   },

@@ -14,18 +14,18 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ng-container *ngIf="isLoggedIn; else login">
       <ul class="navbar-nav mr-auto" >
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" [routerLink]="['/']" >Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Winners</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Tickets</a>
+          <a class="nav-link" [routerLink]="['/tickets']">Tickets</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" [routerLink]="['/user', 'profile']">
             <img [src]="avatarUrl" alt="" class="mx-auto rounded-circle">
             <span class="sr-only">(current)</span>

@@ -1,0 +1,25 @@
+<nav aria-label="Page navigation example">
+  <ul *ngIf="pager.pages && pager.pages.length" class="pagination pagination-circle justify-content-center pg-blue">
+    <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+      <a href="javascript:;" (click)="setPage(1)" class="page-link" mdbWavesEffect>First</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+      <a href="javascript:;" (click)="setPage(pager.currentPage - 1)" class="page-link" aria-label="Previous" mdbWavesEffect>
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" class="page-item">
+      <a href="javascript:;" (click)="setPage(page)" class="page-link" mdbWavesEffect>{{page}}</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item">
+      <a href="javascript:;" (click)="setPage(pager.currentPage + 1)" class="page-link" aria-label="Next" mdbWavesEffect>
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item">
+      <a (click)="setPage(pager.totalPages)" class="page-link" mdbWavesEffect>Last</a>
+    </li>
+  </ul>
+</nav>

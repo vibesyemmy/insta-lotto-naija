@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6"><h3>Ticket List</h3></div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4" *ngFor="let ticket of tickets | async">
+      <mdb-card
+        class="text-white mb-3 text-center"
+        [bgColor]="getTicketBGState(ticket)"
+      >
+        <mdb-card-body>
+          <p class="numbers text-white">{{ ticket.numbers }}</p>
+          <a [routerLink]="['/tickets', ticket.objectId]" mdbBtn color="light"
+            >View Details</a
+          >
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <lotto-front-pagination [total]="ticketsTotal" (offset)="loadTickets($event)"></lotto-front-pagination>
+  </div>
+</div>
