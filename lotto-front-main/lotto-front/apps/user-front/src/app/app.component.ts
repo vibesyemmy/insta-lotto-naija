@@ -109,25 +109,6 @@ export class AppComponent implements OnInit, OnDestroy {
     )
 
     this.compDisposable.push(authDisposable);
-
-    const paymentRequestDisposable = this.ts.boughtTicketObservable.subscribe(
-      (ticket: Ticket) => {
-        this.boughtTicket = ticket;
-        this.modalRef = this.mdModalService.show(PayTicketModalComponent, {
-          backdrop: true,
-          keyboard: false,
-          focus: true,
-          ignoreBackdropClick: true,
-          animated: true,
-          class: 'modal-dialog-centered modal-notify modal-danger'
-        });
-
-        this.modalRef.content.ticket = ticket;
-      },
-      error => console.log(error)
-    );
-
-    this.compDisposable.push(paymentRequestDisposable);
   }
 
   ngOnDestroy() {
