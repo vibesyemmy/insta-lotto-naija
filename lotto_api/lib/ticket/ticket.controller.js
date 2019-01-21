@@ -89,9 +89,7 @@ Controller.beforeSave = (Parse) => {
 				const wQ = new Parse.Query('wallet');
 				wQ.equalTo('user', user);
 
-				const wallet = await wQ.first({
-					sessionToken: user.getSessionToken()
-				});
+				const wallet = await wQ.first({useMasterkey: true});
 
 				if (!user) throw new Parse.Error(401, "You do not have a wallet set up to your account.");
 
