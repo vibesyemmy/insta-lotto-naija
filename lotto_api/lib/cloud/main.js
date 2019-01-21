@@ -21,14 +21,32 @@ Parse.Cloud.afterSave(Parse.User, async (req) => {
         roleQuery.equalTo('name', 'user');
 
         try {
-            const role = await roleQuery.first({useMasterKey: true});
+            const role = await roleQuery.first({
+                useMasterKey: true
+            });
             if (!role) throw new Error('Role not found');
 
             const relation = role.relation('users');
 
-            relation.add(user); 
+            relation.add(user);
 
-            await role.save(null, {useMasterKey: true});
+            await role.save(null, {
+                useMasterKey: true
+            });
+
+            const wallet = new Parse.Object('Wallet');
+            const walletACL = new Parse.ACL();
+            walletACL.setPublicReadAccess(false);
+            walletACL.setPublicWriteAccess(false);
+            walletACL.setRoleWriteAccess('admin', true);
+            walletACL.setRoleReadAccess('admin', true);
+            walletACL.setWriteAccess(user, false);
+            walletACL.setReadAccess(user, true);
+            wallet.set('user', user);
+            wallet.set('balance', 0);
+            wallet.setACL(walletACL);
+
+            wallet.save(null, {useMasterKey: true});
         } catch (error) {
             throw error;
         }
