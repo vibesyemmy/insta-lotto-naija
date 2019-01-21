@@ -24,13 +24,13 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown" dropdown>
           <a dropdownToggle class="nav-link dropdown-toggle">
-            <img [src]="avatarUrl" alt="" class="mx-auto rounded-circle">
+            <img [src]="avatarUrl" alt="" class="mx-auto rounded-circle" width="30" height="30">
             <span class="caret"></span>
             <span class="sr-only">(current)</span>
           </a>
           <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
             <a class="dropdown-item waves-light" mdbWavesEffect [routerLink]="['/user', 'profile']">Profile</a>
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Wallet</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect [routerLink]="['/wallet']">Wallet (&#x20a6;{{walletBalance}})</a>
             <a class="dropdown-item waves-light" mdbWavesEffect href="#">Settings</a>
             <a class="dropdown-item waves-light" mdbWavesEffect href="#">Sign Out</a>
           </div>
