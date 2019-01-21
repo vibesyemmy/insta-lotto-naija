@@ -113,42 +113,42 @@ Controller.beforeSave = (Parse) => {
 	};
 };
 
-Controller.afterSave = (Parse) => {
-	return async(req) => {
-		const baseURL = 'https://api.paystack.co/transaction/initialize';
-		const ticket = req.object;
-		const user = req.user;
+// Controller.afterSave = (Parse) => {
+// 	return async(req) => {
+// 		const baseURL = 'https://api.paystack.co/transaction/initialize';
+// 		const ticket = req.object;
+// 		const user = req.user;
 
-		if (!ticket.existed()) {
-			try {
-				const res = await instance.post(baseURL, {
-					'reference': `${ticket.id}`,
-					'email': `${user.get('email')}`,
-					'amount': `${ticketPrice}`
-				}, {
-					headers: {
-						"Authorization": `Bearer ${secret}`,
-						"Content-Type": "application/json"
-					}
-				});
+// 		if (!ticket.existed()) {
+// 			try {
+// 				const res = await instance.post(baseURL, {
+// 					'reference': `${ticket.id}`,
+// 					'email': `${user.get('email')}`,
+// 					'amount': `${ticketPrice}`
+// 				}, {
+// 					headers: {
+// 						"Authorization": `Bearer ${secret}`,
+// 						"Content-Type": "application/json"
+// 					}
+// 				});
 	
-				const d = res.data
-				const authorization_url = d.data.authorization_url;
-				const access_code = d.data.access_code;
-				const message = d.message;
+// 				const d = res.data
+// 				const authorization_url = d.data.authorization_url;
+// 				const access_code = d.data.access_code;
+// 				const message = d.message;
 	
-				ticket.set('authorization_url', authorization_url);
-				ticket.set('access_code', access_code);
-				ticket.set('message', message);
+// 				ticket.set('authorization_url', authorization_url);
+// 				ticket.set('access_code', access_code);
+// 				ticket.set('message', message);
 	
-				ticket.save(null, { useMasterKey: true });
-			} catch (error) {
-				throw error;
-			}
+// 				ticket.save(null, { useMasterKey: true });
+// 			} catch (error) {
+// 				throw error;
+// 			}
 			
-		}
-	}
-}
+// 		}
+// 	}
+// }
 
 function isValidTicket(ticket) {
 	const begin = moment().subtract(3, 'days').startOf('day');

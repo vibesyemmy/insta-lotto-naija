@@ -5,7 +5,7 @@ const PaymentController = require('../payment/payment.controller');
 const CreditController = require('../credits/credits');
 
 Parse.Cloud.beforeSave('Ticket', TicketController.beforeSave(Parse));
-Parse.Cloud.afterSave('Ticket', TicketController.afterSave(Parse));
+// Parse.Cloud.afterSave('Ticket', TicketController.afterSave(Parse));
 Parse.Cloud.beforeSave('Draw', DrawController.beforeSave(Parse));
 Parse.Cloud.beforeSave('Payment', PaymentController.beforeSave(Parse));
 Parse.Cloud.afterSave('Payment', PaymentController.afterSave(Parse));
