@@ -123,6 +123,5 @@ export class NumberPickerComponent implements OnInit, OnDestroy {
         }
       }
     }
-    console.log(event, num)
   }
 }

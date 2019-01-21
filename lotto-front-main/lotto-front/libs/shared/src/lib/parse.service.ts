@@ -106,9 +106,9 @@ export class ParseService {
   }
 
   getUrl(inProd: boolean): string {
-    return `https://api.insta-lotto-naija.ml/v1`;
+    return inProd ? `https://api.insta-lotto-naija.ml/v1` : 'http://localhost:3000/api';
   }
   getLiveUrl(inProd: boolean): string {
-    return inProd ? `wss://live.insta-lotto-naija.ml/live` : "wss://192.168.99.100/live";
+    return inProd ? `wss://live.insta-lotto-naija.ml/live` : "ws://localhost:3030/live";
   }
 }
