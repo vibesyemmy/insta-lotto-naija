@@ -9,7 +9,7 @@
     "start": "nodemon --exec babel-node lib/server.js",
     "build": "babel lib --out-dir dist",
     "serve": "node dist/server.js",
-    "test": "istanbul cover _mocha lib/**/*.spec.js"
+    "test": "nodemon --exec 'nyc _mocha -R spec --compilers js:@babel/register lib/**/*.spec.js'"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -37,6 +37,7 @@
     "@babel/node": "^7.0.0-rc.1",
     "@babel/preset-env": "^7.0.0-rc.1",
     "nodemon": "^1.18.6",
+    "nyc": "^13.1.0",
     "sinon": "^7.1.1",
     "sinon-test": "^2.4.0"
   },

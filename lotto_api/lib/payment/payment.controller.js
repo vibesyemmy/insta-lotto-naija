@@ -1,12 +1,12 @@
 const crypto = require('crypto');
-const secret = process.env.SECRET_KEY || 'sk_test_6dfbccfd9d90b44c0b0a48af63fb9c649faee59e' ;
+const secret = process.env.SECRET_KEY || 'sk_test_6dfbccfd9d90b44c0b0a48af63fb9c649faee59e';
 const axios = require('axios');
 const PORT = process.env.PORT || 3000,
-mountPath = process.env.PARSE_MOUNT || 'api',
-APP_ID = process.env.APP_ID || 'abcd',
-MASTER_KEY = process.env.MASTER_KEY || 'efgh',
-Controller = {},
-instance = axios.create();
+    mountPath = process.env.PARSE_MOUNT || 'api',
+    APP_ID = process.env.APP_ID || 'abcd',
+    MASTER_KEY = process.env.MASTER_KEY || 'efgh',
+    Controller = {},
+    instance = axios.create();
 
 instance.defaults.headers.common['X-Parse-Application-Id'] = APP_ID;
 instance.defaults.headers.common['X-Parse-Master-Key'] = MASTER_KEY;
@@ -54,17 +54,19 @@ Controller.webhook = async (req, res) => {
 Controller.beforeSave = (Parse) => {
     return async (req) => {
         const payment = req.object;
-        const ticketId = payment.get('reference');
-        const tQ = new Parse.Query('Ticket');
-        tQ.equalTo('objectId', ticketId);
-        tQ.include('player');
+        const creditId = payment.get('reference');
+        const cQ = new Parse.Query('Credit');
+        cQ.equalTo('objectId', creditId);
+        cQ.include('user');
         try {
-            const ticket = await tQ.first({useMasterKey: true});
+            const credit = await cQ.first({
+                useMasterKey: true
+            });
 
-            if (!ticket) {
-                throw new Parse.Error(404, "Ticket not found");
+            if (!credit) {
+                throw new Parse.Error(404, "Credit not found");
             }
-            const user = ticket.get('player');
+            const user = credit.get('user');
             const paymentACL = new Parse.ACL();
             paymentACL.setPublicReadAccess(false);
             paymentACL.setPublicWriteAccess(false);
@@ -77,27 +79,54 @@ Controller.beforeSave = (Parse) => {
         } catch (error) {
             throw error;
         }
-        
+
     }
 }
 
 Controller.afterSave = (Parse) => {
     return async (req) => {
         const payment = req.object;
-        const ticketId = payment.get('reference');
-        const tQ = new Parse.Query('Ticket');
-        tQ.equalTo('objectId', ticketId);
+        const creditId = payment.get('reference');
+        const cQ = new Parse.Query('Credit');
+        cQ.equalTo('objectId', creditId);
 
         try {
-            const ticket = await tQ.first({useMasterKey: true});
+            const credit = await cQ.first({
+                useMasterKey: true
+            });
 
-            if (!ticket) {
+            if (!credit) {
                 throw new Parse.Error(404, "Ticket not found");
             }
 
-            if (payment.has('event') && payment.get('event') === 'charge.success' && !ticket.get('paid')) {
-                ticket.set('paid', true);
-                await ticket.save(null, {useMasterKey: true});
+            const user = credit.get('user');
+
+            if (payment.has('event') && payment.get('event') === 'charge.success' && !credit.get('paid')) {
+                const wQ = new Parse.Query('Wallet');
+                wQ.equalTo('user', user);
+                let wallet = await wQ.first({
+                    useMasterKey: true
+                });
+                if (!wallet) {
+                    wallet = new Parse.Object('Wallet');
+                    const walletACL = new Parse.ACL();
+                    walletACL.setPublicReadAccess(false);
+                    walletACL.setPublicWriteAccess(false);
+                    walletACL.setRoleWriteAccess('admin', true);
+                    walletACL.setRoleReadAccess('admin', true);
+                    walletACL.setWriteAccess(user, false);
+                    walletACL.setReadAccess(user, true);
+                    wallet.set('user', user);
+                    wallet.set('balance', credit.get('amount'));
+                    wallet.setACL(walletACL);
+                } else {
+                    wallet.increment('balance', credit.get('amount'));
+                }
+                wallet.save(null, {useMasterKey: true});
+                credit.set('paid', true);
+                await credit.save(null, {
+                    useMasterKey: true
+                });
             }
         } catch (error) {
             throw error;

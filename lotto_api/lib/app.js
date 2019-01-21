@@ -34,7 +34,7 @@ const api = new ParseServer({
 	publicServerURL: publicServerURL,
 	allowClientClassCreation: false,
 	liveQuery: {
-		classNames: ['Ticket', 'Draw']
+		classNames: ['Ticket', 'Draw', 'Credit', 'Wallet']
 	}
 });
 

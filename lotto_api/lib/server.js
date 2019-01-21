@@ -38,9 +38,9 @@ const api = new ParseServer({
 	masterKey: MASTER_KEY,
 	serverURL: serverURL,
 	publicServerURL: publicServerURL,
-	allowClientClassCreation: false,
+	allowClientClassCreation: true, // Make false after tests
 	liveQuery: {
-		classNames: ['Ticket', 'Draw', 'Payment'],
+		classNames: ['Ticket', 'Draw', 'Payment', 'Credit', 'Wallet'],
 		redisURL: `redis://${process.env.redisURL}:${process.env.redisPort}` || "redis://:{password}@redis-123456.c11.us-east-1-3.ec2.cloud.redislabs.com:18091", // this is optional, include only if you're using Redis
 	}
 });
