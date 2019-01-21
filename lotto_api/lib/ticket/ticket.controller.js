@@ -7,7 +7,7 @@ const Controller = {};
 
 const secret = process.env.SECRET_KEY || 'sk_test_6dfbccfd9d90b44c0b0a48af63fb9c649faee59e';
 const axios = require('axios'),
-instance = axios.create();
+	instance = axios.create();
 
 const ticketPrice = process.env.DEFAULT_TICKET_PRICE || 200 * 100;
 
@@ -84,6 +84,19 @@ Controller.beforeSave = (Parse) => {
 			// New Ticket
 			if (!ticket.existed()) {
 				if (!user) throw new Parse.Error(401, 'You must be logged in to create a ticket');
+
+				// Ensure the user has enough balance in their wallets
+				const wQ = new Parse.Query('wallet');
+				wQ.equalTo('user', user);
+
+				const wallet = await wQ.first({
+					sessionToken: user.getSessionToken()
+				});
+
+				if (!user) throw new Parse.Error(401, "You do not have a wallet set up to your account.");
+
+				if (ticketPrice > wallet.get('balance')) throw new Parse.Error(401, "Insufficient credits. Please fund your account.");
+
 				// find ticket with picked number
 				// TODO: Limit search to the past three days
 				const sameNumberQ = new Parse.Query('Ticket');
@@ -113,52 +126,40 @@ Controller.beforeSave = (Parse) => {
 	};
 };
 
-// Controller.afterSave = (Parse) => {
-// 	return async(req) => {
-// 		const baseURL = 'https://api.paystack.co/transaction/initialize';
-// 		const ticket = req.object;
-// 		const user = req.user;
+Controller.afterSave = (Parse) => {
+	return async (req) => {
+		const ticket = req.object;
+		const user = req.user;
 
-// 		if (!ticket.existed()) {
-// 			try {
-// 				const res = await instance.post(baseURL, {
-// 					'reference': `${ticket.id}`,
-// 					'email': `${user.get('email')}`,
-// 					'amount': `${ticketPrice}`
-// 				}, {
-// 					headers: {
-// 						"Authorization": `Bearer ${secret}`,
-// 						"Content-Type": "application/json"
-// 					}
-// 				});
-	
-// 				const d = res.data
-// 				const authorization_url = d.data.authorization_url;
-// 				const access_code = d.data.access_code;
-// 				const message = d.message;
-	
-// 				ticket.set('authorization_url', authorization_url);
-// 				ticket.set('access_code', access_code);
-// 				ticket.set('message', message);
-	
-// 				ticket.save(null, { useMasterKey: true });
-// 			} catch (error) {
-// 				throw error;
-// 			}
-			
-// 		}
-// 	}
-// }
+		if (!ticket.existed()) {
+			const wQ = new Parse.Query('wallet');
+			wQ.equalTo('user', user);
+
+			try {
+				const wallet = await wQ.first({
+					sessionToken: user.getSessionToken()
+				});
+
+				const currentBalance = wallet.get('balance') - ticketPrice;
+				wallet.set('balance', currentBalance);
+
+				await wallet.save(null, {useMasterkey: true});
+			} catch (error) {
+				throw error;
+			}
+		}
+	}
+}
 
 function isValidTicket(ticket) {
 	const begin = moment().subtract(3, 'days').startOf('day');
-	if(ticket === undefined || ticket == null) {
+	if (ticket === undefined || ticket == null) {
 		return true;
 	} else if (moment(ticket.get("createdAt")).isBefore(begin)) {
 		return true;
-	} else if(ticket.get('drawCount') == 9) {
+	} else if (ticket.get('drawCount') == 9) {
 		return true;
-	} else if(ticket.get("picked")){
+	} else if (ticket.get("picked")) {
 		return true;
 	} else {
 		return false;
