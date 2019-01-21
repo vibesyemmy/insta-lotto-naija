@@ -14,5 +14,7 @@
     , "../../libs/home/src/index.ts"
 
     , "../../libs/tickets/src/index.ts"
+
+    , "../../libs/wallet/src/index.ts"
 ]
 }

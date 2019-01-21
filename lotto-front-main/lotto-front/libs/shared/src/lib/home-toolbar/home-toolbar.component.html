@@ -2,20 +2,17 @@
   home-toolbar works!
 </p> -->
 
-<nav class="navbar navbar-expand-lg navbar-light bg-off-white">
-  <div class="container">
-    <a class="navbar-brand" href="#">
-    <img src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
-  </a>
-  <button class="navbar-toggler" type="button">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<mdb-navbar SideClass="navbar navbar-dark pink navbar-expand-lg">
+  <mdb-navbar-brand>
+    <a class="navbar-brand" routerLink="/">
+      <img src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
+    </a>
+  </mdb-navbar-brand>
+  <links>
     <ng-container *ngIf="isLoggedIn; else login">
-      <ul class="navbar-nav mr-auto" >
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/']" >Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" [routerLink]="['/']">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Winners</a>
@@ -25,18 +22,23 @@
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/user', 'profile']">
+        <li class="nav-item dropdown" dropdown>
+          <a dropdownToggle class="nav-link dropdown-toggle">
             <img [src]="avatarUrl" alt="" class="mx-auto rounded-circle">
+            <span class="caret"></span>
             <span class="sr-only">(current)</span>
           </a>
+          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+            <a class="dropdown-item waves-light" mdbWavesEffect [routerLink]="['/user', 'profile']">Profile</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Wallet</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Settings</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Sign Out</a>
+          </div>
         </li>
       </ul>
     </ng-container>
-
-  </div>
-  </div>
-</nav>
+  </links>
+</mdb-navbar>
 
 <ng-template #login>
   <ul class="navbar-nav ml-auto">
