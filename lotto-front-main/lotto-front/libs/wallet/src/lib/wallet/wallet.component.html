@@ -16,7 +16,7 @@
             <p class="acc-bal">&#x20a6;{{balance | number}}</p>
           </mdb-card-text>
 
-          <a href="#" mdbBtn color="primary" mdbWavesEffect>Add Funds</a>
+          <a [routerLink]="['./addFunds']" mdbBtn color="primary" mdbWavesEffect>Add Funds</a>
 
           <a href="#" mdbBtn color="success" mdbWavesEffect>Transfer Credits</a>
         </mdb-card-body>
