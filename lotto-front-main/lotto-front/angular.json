@@ -275,6 +275,34 @@
           }
         }
       }
+    },
+    "wallet": {
+      "root": "libs/wallet",
+      "sourceRoot": "libs/wallet/src",
+      "projectType": "library",
+      "prefix": "lotto-front",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/wallet/tsconfig.lib.json",
+              "libs/wallet/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/wallet/jest.config.js",
+            "tsConfig": "libs/wallet/tsconfig.spec.json",
+            "setupFile": "libs/wallet/src/test-setup.ts"
+          }
+        }
+      }
     }
   },
   "cli": {

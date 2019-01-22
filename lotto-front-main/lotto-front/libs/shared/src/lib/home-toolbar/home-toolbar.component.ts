@@ -22,6 +22,9 @@ export class HomeToolbarComponent implements OnInit {
   @Input()
   avatar: Avatar = initAvatar
 
+  @Input()
+  walletBalance = 5000;
+
   @Output() clickAction = new EventEmitter<string>();
 
   avatarUrl = `https://www.gravatar.com/avatar/${md5(this.avatar.email)}?s=52&d=identicon`

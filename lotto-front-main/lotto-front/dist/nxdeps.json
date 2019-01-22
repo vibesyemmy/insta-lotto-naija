@@ -17,6 +17,25 @@
     {
       "projectName": "home",
       "type": "loadChildren"
+    },
+    {
+      "projectName": "tickets",
+      "type": "loadChildren"
+    }
+  ],
+  "pagination": [],
+  "tickets": [
+    {
+      "projectName": "model",
+      "type": "es6Import"
+    },
+    {
+      "projectName": "shared",
+      "type": "es6Import"
+    },
+    {
+      "projectName": "pagination",
+      "type": "es6Import"
     }
   ],
   "shared": [

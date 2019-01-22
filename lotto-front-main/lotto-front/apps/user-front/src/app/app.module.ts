@@ -40,6 +40,13 @@ const paths = [
     data: {
       title: `${BASE_TITLE}Tickets`
     }
+  },
+  {
+    path: 'wallet',
+    loadChildren: '@lotto-front/wallet#WalletModule',
+    data: {
+      title: `${BASE_TITLE}Wallet`
+    }
   }
 ];
 @NgModule({

@@ -86,14 +86,17 @@ Controller.beforeSave = (Parse) => {
 				if (!user) throw new Parse.Error(401, 'You must be logged in to create a ticket');
 
 				// Ensure the user has enough balance in their wallets
-				const wQ = new Parse.Query('wallet');
+				const wQ = new Parse.Query('Wallet');
 				wQ.equalTo('user', user);
 
-				const wallet = await wQ.first({useMasterkey: true});
+				const wallet = await wQ.first({
+					sessionToken: user.getSessionToken()
+				});
 
-				if (!user) throw new Parse.Error(401, "You do not have a wallet set up to your account.");
+				if (!user) throw new Parse.Error(400, "You do not have a wallet set up to your account.");
+				if (!wallet) throw new Parse.Error(400, "Could not find wallet.");
 
-				if (ticketPrice > wallet.get('balance')) throw new Parse.Error(401, "Insufficient credits. Please fund your account.");
+				if (ticketPrice > wallet.get('balance')) throw new Parse.Error(400, "Insufficient credits. Please fund your account.");
 
 				// find ticket with picked number
 				// TODO: Limit search to the past three days
@@ -130,18 +133,28 @@ Controller.afterSave = (Parse) => {
 		const user = req.user;
 
 		if (!ticket.existed()) {
-			const wQ = new Parse.Query('wallet');
-			wQ.equalTo('user', user);
-
 			try {
+				const wQ = new Parse.Query('Wallet');
+				wQ.equalTo('user', user);
+
 				const wallet = await wQ.first({
 					sessionToken: user.getSessionToken()
 				});
+				const balance = wallet.get('balance');
+				const currentBalance = balance - ticketPrice;
 
-				const currentBalance = wallet.get('balance') - ticketPrice;
+				console.log("Balances", wallet, balance, currentBalance);
+
 				wallet.set('balance', currentBalance);
 
-				await wallet.save(null, {useMasterkey: true});
+				await wallet.save(null, {
+					useMasterKey: true
+				});
+				ticket.set('paid', true);
+
+				ticket.save(null, {
+					useMasterKey: true
+				});
 			} catch (error) {
 				throw error;
 			}

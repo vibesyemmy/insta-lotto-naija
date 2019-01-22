@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>
+        Wallet
+      </h1>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-4 mb-3">
+      <mdb-card>
+        <mdb-card-body>
+          <mdb-card-title>
+            <h4 class="pink-text">Balance</h4>
+          </mdb-card-title>
+
+          <mdb-card-text>
+            <p class="acc-bal">&#x20a6;{{balance | number}}</p>
+          </mdb-card-text>
+
+          <a href="#" mdbBtn color="primary" mdbWavesEffect>Add Funds</a>
+
+          <a href="#" mdbBtn color="success" mdbWavesEffect>Transfer Credits</a>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+    <div class="col-lg-8 col-sm-6 col-md-6">
+      <mdb-card>
+        <mdb-card-body>
+          <mdb-card-title>
+            <h4 class="pink-text">Transactions</h4>
+          </mdb-card-title>
+
+          <ul class="list-group">
+            <li class="list-group-item">
+              <i class="fa fa-ticket green-text mr-3"></i>
+              Cras justo odio
+            </li>
+            <li class="list-group-item"><i class="fa fa-ticket pink-text mr-3"></i> Dapibus ac facilisis in</li>
+            <li class="list-group-item"><i class="fa fa-ticket pink-text mr-3"></i> Morbi leo risus</li>
+            <li class="list-group-item"><i class="fa fa-ticket pink-text mr-3"></i> Porta ac consectetur ac</li>
+            <li class="list-group-item"><i class="fa fa-ticket pink-text mr-3"></i> Vestibulum at eros</li>
+          </ul>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+</div>

@@ -8,7 +8,7 @@ services:
       - "mongoData:/data/mongo/db"
   lotto-live-api:
     restart: always
-    image: mrsmith9ja/lotto-live-api
+    build: ./lotto-live-server
     environment:
       -  APP_ID=abcd
       -  MASTER_KEY=efg
@@ -19,10 +19,9 @@ services:
     ports: 
       - "3030:3030"
   lotto-api:
-    image: mrsmith9ja/lotto-main-api
+    build: ./lotto_api
     environment: 
-      -  DB_HOST=mongo:27017
-      -  DB_NAME=lotto
+      -  MONGO_DB=mongodb://mongo:27017/lotto
       -  APP_ID=abcd
       -  MASTER_KEY=efg
       -  HOST_NAME=localhost
@@ -35,7 +34,9 @@ services:
     depends_on: 
       - mongo
   lotto-user-front:
-    image: mrsmith9ja/lotto-user-ui
+    build: 
+      context: ./lotto-front-main
+      dockerfile: Dockerfile.user.front
     ports: 
       - "8080:80"
 volumes:

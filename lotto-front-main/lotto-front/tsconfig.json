@@ -30,6 +30,9 @@
       ],
       "@lotto-front/pagination": [
         "libs/pagination/src/index.ts"
+      ],
+      "@lotto-front/wallet": [
+        "libs/wallet/src/index.ts"
       ]
     }
   },
