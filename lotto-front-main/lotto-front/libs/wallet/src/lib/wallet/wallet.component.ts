@@ -1,17 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { WalletFacade } from '../+state/wallet.facade';
+import { Wallet } from '../+state/wallet.reducer';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'lotto-front-wallet',
   templateUrl: './wallet.component.html',
-  styleUrls: ['./wallet.component.css']
+  styleUrls: ['./wallet.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WalletComponent implements OnInit {
 
-  balance = 5000;
+  wallet$: Observable<Wallet>;
 
-  constructor() { }
+  constructor(private walletFacade: WalletFacade) {
+    walletFacade.loadWallet();
+  }
 
   ngOnInit() {
+    this.wallet$ = this.walletFacade.wallet$;
   }
 
 }

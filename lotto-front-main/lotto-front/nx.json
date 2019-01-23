@@ -39,6 +39,9 @@
     },
     "wallet": {
       "tags": []
+    },
+    "toolbar": {
+      "tags": []
     }
   }
 }

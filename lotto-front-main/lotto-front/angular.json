@@ -303,6 +303,34 @@
           }
         }
       }
+    },
+    "toolbar": {
+      "root": "libs/toolbar",
+      "sourceRoot": "libs/toolbar/src",
+      "projectType": "library",
+      "prefix": "lotto-front",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/toolbar/tsconfig.lib.json",
+              "libs/toolbar/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/toolbar/jest.config.js",
+            "tsConfig": "libs/toolbar/tsconfig.spec.json",
+            "setupFile": "libs/toolbar/src/test-setup.ts"
+          }
+        }
+      }
     }
   },
   "cli": {

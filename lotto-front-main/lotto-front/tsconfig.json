@@ -33,6 +33,9 @@
       ],
       "@lotto-front/wallet": [
         "libs/wallet/src/index.ts"
+      ],
+      "@lotto-front/toolbar": [
+        "libs/toolbar/src/index.ts"
       ]
     }
   },

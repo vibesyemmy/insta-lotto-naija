@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { ParseService, TicketService, LoginRequest, AuthResponse, RegisterRequest, PayTicketModalComponent } from '@lotto-front/shared';
 import { environment } from '../environments/environment';
-import { Ticket, TicketResponse, initTicket } from '@lotto-front/model';
+import { Ticket, TicketResponse, initTicket, UserData, initialUser, map as mapUser } from '@lotto-front/model';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -42,18 +42,20 @@ export class AppComponent implements OnInit, OnDestroy {
 
   boughtTicket = initTicket;
 
+  user: UserData = initialUser;
+
   constructor(
     private ps: ParseService,
     private ts: TicketService,
     private toastr: ToastrService,
     private modalService: BsModalService,
-    private mdModalService: MDBModalService,
     fb: FormBuilder
     ) {
       const inProd = environment.production;
       this.ps.initialize(inProd);
       this.ts.initialize();
       this.isLoggedIn = this.ps.getUser() != null ? true : false;
+      this.user = mapUser(this.ps.getUser())
 
       this.loginForm = fb.group({
         email: [null, Validators.compose([Validators.required, Validators.email])],

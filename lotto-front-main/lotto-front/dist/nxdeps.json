@@ -21,6 +21,10 @@
     {
       "projectName": "tickets",
       "type": "loadChildren"
+    },
+    {
+      "projectName": "wallet",
+      "type": "loadChildren"
     }
   ],
   "pagination": [],
@@ -38,6 +42,7 @@
       "type": "es6Import"
     }
   ],
+  "wallet": [],
   "shared": [
     {
       "projectName": "model",

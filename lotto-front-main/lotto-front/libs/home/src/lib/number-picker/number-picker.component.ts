@@ -1,28 +1,23 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, OnChanges, SimpleChanges, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { TicketService } from '@lotto-front/shared';
 
 @Component({
   selector: 'lotto-front-number-picker',
   templateUrl: './number-picker.component.html',
-  styleUrls: ['./number-picker.component.scss']
+  styleUrls: ['./number-picker.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NumberPickerComponent implements OnInit, OnDestroy {
-
+export class NumberPickerComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
+  public pinCodeArray: any[];
   lottoForm: FormGroup;
-
   compositeSubscription: Subscription[] = [];
-
-  @ViewChild("digit1") digit1Element: ElementRef;
-  @ViewChild("digit2") digit2Element: ElementRef;
-  @ViewChild("digit3") digit3Element: ElementRef;
-  @ViewChild("digit4") digit4Element: ElementRef;
-  @ViewChild("digit5") digit5Element: ElementRef;
   @ViewChild("loading") loadingRef: ElementRef;
+  isValid = false;
+
+  codeSize = 5;
 
   modalRef: BsModalRef;
   config = {
@@ -31,14 +26,22 @@ export class NumberPickerComponent implements OnInit, OnDestroy {
   };
 
   constructor(fb: FormBuilder, private ts: TicketService) {
-    this.lottoForm = fb.group({
-      'digit1' : [null, Validators.compose([Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(1), Validators.maxLength(1)])],
-      'digit2' : [null, Validators.compose([Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(1), Validators.maxLength(1)])],
-      'digit3' : [null, Validators.compose([Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(1), Validators.maxLength(1)])],
-      'digit4' : [null, Validators.compose([Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(1), Validators.maxLength(1)])],
-      'digit5' : [null, Validators.compose([Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(1), Validators.maxLength(1)])],
-      'validate' : ''
+    this.initiateBuilder();
+  }
+
+  initiateBuilder() {
+    this.lottoForm = new FormGroup({});
+    const v_pinCodeArray: any[] = [];
+    for (let i = 0; i < this.codeSize; i++) {
+      const formController: FormControl = new FormControl({ value: '', disabled: true }, Validators.compose([Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/), Validators.minLength(1), Validators.maxLength(1)]));
+      this.lottoForm.addControl('pinCode' + i, formController);
+    }
+    Object.keys(this.lottoForm.value).forEach(function (key) {
+      v_pinCodeArray.push(key);
     });
+    this.pinCodeArray = v_pinCodeArray;
+    console.log(this.pinCodeArray.length);
+    this.lottoForm.get('pinCode0').enable();
   }
 
   ngOnInit() {
@@ -65,63 +68,92 @@ export class NumberPickerComponent implements OnInit, OnDestroy {
     // this.compositeSubscription = [sub1, sub2, sub3, sub4]
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    const stylebody = document.body.style;
+    console.log(stylebody);
+    this.initiateBuilder();
+  }
+
+  ngAfterViewInit() {
+    const input: HTMLElement = document.querySelectorAll('.pinCodeInput').item(0) as HTMLElement;
+    input.focus();
+  }
+
   ngOnDestroy() {
     if (this.compositeSubscription.length > 0) {
-      for(const sub of this.compositeSubscription) {
+      for (const sub of this.compositeSubscription) {
         sub.unsubscribe()
       }
     }
   }
 
-  addTicket(ticketNumbers) {
-    const num = `${ticketNumbers.digit1}${ticketNumbers.digit2}${ticketNumbers.digit3}${ticketNumbers.digit4}${ticketNumbers.digit5}`;
+  addTicket() {
+    let ci = ''
+    Object.keys(this.lottoForm.value).forEach((key) => {
+      ci += this.lottoForm.value[key];
+    });
+    const num = ci;
     this.ts.buyTicket(num);
     this.lottoForm.reset();
   }
 
-  previousFocus(num) {
-    switch(num) {
-      case 1: {
-        this.digit1Element.nativeElement.focus()
-        break;
+  onKeyUp($event: any, item: any, index: any) {
+    let v_index;
+
+    const reg = new RegExp("[0-9]");
+
+    if ($event.key === "Backspace") {
+      if (index === 0) {
+        v_index = 0;
+      } else {
+        v_index = index - 1;
+        this.lottoForm.get('pinCode' + index).disable();
       }
-      case 2: {
-        this.digit2Element.nativeElement.focus()
-        break;
+    } else {
+      if (reg.test($event.target.value)) {
+
+        if (index === this.codeSize - 1) {
+          v_index = this.codeSize - 1;
+        } else {
+          v_index = index + 1;
+          this.lottoForm.get('pinCode' + v_index).enable();
+
+        }
       }
-      case 3: {
-        this.digit3Element.nativeElement.focus()
-        break;
+    }
+
+    const input: HTMLElement = document.querySelectorAll('.pinCodeInput').item(v_index) as HTMLElement;
+    input.focus();
+
+    let pinCodeValue = '';
+
+    if (index === this.codeSize - 1 && $event.key !== "Backspace") {
+      let ci = ''
+      Object.keys(this.lottoForm.value).forEach((key) => {
+        ci += this.lottoForm.value[key];
+      });
+      pinCodeValue = ci.trim();
+    } else if ($event.key === "Backspace") {
+      pinCodeValue = '';
+    }
+
+    if (pinCodeValue.trim().length === 5) {
+      this.isValid = true;
+    } else {
+      this.isValid = false;
+    }
+
+  }
+
+
+  onKeyDown($event: any) {
+    if ($event.key !== "Backspace") {
+
+      if ($event.target.value.length === 1) {
+        return false;
       }
-      case 4: {
-        this.digit4Element.nativeElement.focus()
-        break;
-      }
+
     }
   }
 
-  onKey(event: any, num) { // without type info
-    if (event.key === 'Backspace') {
-      this.previousFocus(num);
-    } else {
-      switch (num) {
-        case 0: {
-          this.digit2Element.nativeElement.focus()
-          break;
-        }
-        case 1: {
-          this.digit3Element.nativeElement.focus()
-          break;
-        }
-        case 2: {
-          this.digit4Element.nativeElement.focus()
-          break;
-        }
-        case 3: {
-          this.digit5Element.nativeElement.focus()
-          break;
-        }
-      }
-    }
-  }
 }
