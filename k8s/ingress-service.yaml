@@ -32,10 +32,10 @@ spec:
     - host: user.insta-lotto-naija.ml
       http:
         paths:
-          - path: / 
-            backend:
-                serviceName: user-client-cluster-ip-service
-                servicePort: 80
+          - backend:
+              serviceName: user-client-cluster-ip-service
+              servicePort: 80
+            
     - host: insta-lotto-naija.ml
       http:
         paths:
