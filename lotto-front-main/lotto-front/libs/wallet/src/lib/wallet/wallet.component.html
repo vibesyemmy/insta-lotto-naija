@@ -13,12 +13,12 @@
           </mdb-card-title>
 
           <mdb-card-text>
-            <p class="acc-bal">&#x20a6;{{balance | number}}</p>
+            <p class="acc-bal">&#x20a6;{{(wallet$ | async).balance }}</p>
           </mdb-card-text>
 
-          <a href="#" mdbBtn color="primary" mdbWavesEffect>Add Funds</a>
+          <a [routerLink]="['./addFunds']" mdbBtn color="primary" mdbWavesEffect>Add Funds</a>
 
-          <a href="#" mdbBtn color="success" mdbWavesEffect>Transfer Credits</a>
+          <a [routerLink]="['./transferFunds']" mdbBtn color="success" mdbWavesEffect>Transfer Credits</a>
         </mdb-card-body>
       </mdb-card>
     </div>

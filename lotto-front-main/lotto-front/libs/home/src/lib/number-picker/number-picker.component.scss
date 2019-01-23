@@ -39,6 +39,12 @@ $title-size: 40px;
       font-size: $title-size;
     }
   }
+  input[type=number] {
+    &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
   .lotto-entry {
     border: 1px solid #ddd;
     width: $box-size + 9;

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { md5 } from '../avatar.helper';
+import { Observable } from 'rxjs';
+import { Wallet } from '@lotto-front/wallet';
+import { md5 } from '@lotto-front/shared';
 
 export interface Avatar {
   email: string;
@@ -10,27 +12,23 @@ export const initAvatar: Avatar = {
 }
 
 @Component({
-  selector: 'lotto-front-home-toolbar',
-  templateUrl: './home-toolbar.component.html',
-  styleUrls: ['./home-toolbar.component.scss'],
+  selector: 'lotto-front-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeToolbarComponent implements OnInit {
+export class NavbarComponent implements OnInit {
+  wallet$: Observable<Wallet>;
 
   @Input()
   isLoggedIn = false;
 
   @Input()
-  avatar: Avatar = initAvatar
-
-  @Input()
-  walletBalance = 5000;
+  avatar = ''
 
   @Output() clickAction = new EventEmitter<string>();
 
-  avatarUrl = `https://www.gravatar.com/avatar/${md5(this.avatar.email)}?s=52&d=identicon`
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }

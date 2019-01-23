@@ -23,6 +23,7 @@ import { TitleUpdaterEffects } from './effects/title-updater';
 import { ModalModule, BsDropdownModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MDBBootstrapModule, MDBModalService } from 'angular-bootstrap-md';
+import { ToolbarModule } from '@lotto-front/toolbar';
 
 const BASE_TITLE = "Lotto | "
 
@@ -70,7 +71,8 @@ const paths = [
     EffectsModule.forRoot([TitleEffects, TitleUpdaterEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    ToolbarModule
   ],
   entryComponents: [
     PayTicketModalComponent
