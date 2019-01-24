@@ -5,6 +5,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/use-regex: "true"
     certmanager.k8s.io/cluster-issuer: 'letsencrypt-prod'
     nginx.ingress.kubernetes.io/ssl-redirect: 'true'
 spec:
@@ -32,10 +33,10 @@ spec:
     - host: user.insta-lotto-naija.ml
       http:
         paths:
-          - backend:
-              serviceName: user-client-cluster-ip-service
-              servicePort: 80
-            
+          - path: /.*
+            backend:
+                serviceName: user-client-cluster-ip-service
+                servicePort: 80
     - host: insta-lotto-naija.ml
       http:
         paths:
