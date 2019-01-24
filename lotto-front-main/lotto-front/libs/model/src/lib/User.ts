@@ -18,7 +18,7 @@ export const initialUser: UserData = {
 
 export function map(arg: Parse.User): UserData {
   if (arg == null || arg === undefined) {
-    return null;
+    return initialUser;
   }
   return {
     objectId: arg.id,
