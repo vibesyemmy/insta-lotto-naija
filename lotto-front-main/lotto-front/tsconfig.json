@@ -36,6 +36,9 @@
       ],
       "@lotto-front/toolbar": [
         "libs/toolbar/src/index.ts"
+      ],
+      "@lotto-front/auth": [
+        "libs/auth/src/index.ts"
       ]
     }
   },

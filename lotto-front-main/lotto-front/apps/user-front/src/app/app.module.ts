@@ -6,7 +6,7 @@ import { NxModule } from '@nrwl/nx';
 import { RouterModule } from '@angular/router';
 import { SharedModule, PayTicketModalComponent, ParseService } from '@lotto-front/shared';
 import { UserServiceService } from './user-service.service';
-import { UserGuard } from './user.guard';
+import { UserGuard } from "./UserGuard";
 import { ToastrModule } from 'ngx-toastr';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -24,6 +24,7 @@ import { ModalModule, BsDropdownModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MDBBootstrapModule, MDBModalService } from 'angular-bootstrap-md';
 import { ToolbarModule } from '@lotto-front/toolbar';
+import { AuthModule } from '@lotto-front/auth';
 
 const BASE_TITLE = "Lotto | "
 
@@ -33,7 +34,8 @@ const paths = [
     loadChildren: '@lotto-front/home#HomeModule',
     data: {
       title: `${BASE_TITLE}Home`
-    }
+    },
+    canLoad: [ UserGuard ]
   },
   {
     path: 'tickets',
@@ -53,6 +55,7 @@ const paths = [
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AuthModule,
     BrowserModule,
     BrowserAnimationsModule,
     ModalModule.forRoot(),

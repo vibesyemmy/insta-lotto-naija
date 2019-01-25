@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
 import { Observable } from 'rxjs';
 import { Wallet } from '@lotto-front/wallet';
 import { md5 } from '@lotto-front/shared';
+import { AuthService } from '@lotto-front/auth';
 
 export interface Avatar {
   email: string;
@@ -20,21 +21,23 @@ export const initAvatar: Avatar = {
 export class NavbarComponent implements OnInit {
   wallet$: Observable<Wallet>;
 
-  @Input()
-  isLoggedIn = false;
-
-  @Input()
-  avatar = ''
+  isLoggedIn = this.authService.isUserLoggedIn();
+  avatar = '';
 
   @Output() clickAction = new EventEmitter<string>();
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
+    this.avatar = this.authService.getCurrentUser().avatar;
   }
 
   onActionClick(action: string) {
     this.clickAction.next(action);
+  }
+
+  logout() {
+    this.authService.logoout();
   }
 
 }

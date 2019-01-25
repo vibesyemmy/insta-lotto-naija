@@ -32,7 +32,7 @@
             <a class="dropdown-item waves-light" mdbWavesEffect [routerLink]="['/user', 'profile']">Profile</a>
             <a class="dropdown-item waves-light" mdbWavesEffect [routerLink]="['/wallet']">Wallet</a>
             <a class="dropdown-item waves-light" mdbWavesEffect href="#">Settings</a>
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Sign Out</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect href="#" (click)="logout()">Sign Out</a>
           </div>
         </li>
       </ul>
@@ -43,10 +43,10 @@
 <ng-template #login>
   <ul class="navbar-nav ml-auto">
     <li class="nav-item active">
-      <a class="nav-link" href="#" (click)="onActionClick('login')">Sign In <span class="sr-only">(current)</span></a>
+      <a class="nav-link" [routerLink]="['/', 'login']">Sign In <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" (click)="onActionClick('signup')">Sign Up</a>
+      <a class="nav-link" [routerLink]="['/', 'signup']">Sign Up</a>
     </li>
   </ul>
 </ng-template>

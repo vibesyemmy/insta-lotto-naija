@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
-import { ParseService, TicketService, LoginRequest, AuthResponse, RegisterRequest, PayTicketModalComponent } from '@lotto-front/shared';
+import { ParseService, TicketService, LoginRequest, AuthResponse, RegisterRequest } from '@lotto-front/shared';
 import { environment } from '../environments/environment';
 import { Ticket, TicketResponse, initTicket, UserData, initialUser, map as mapUser } from '@lotto-front/model';
 import { Observable, Subscription } from 'rxjs';
@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
+import { MDBModalRef } from 'angular-bootstrap-md';
 
 @Component({
   selector: 'lotto-root',
@@ -51,8 +51,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private modalService: BsModalService,
     fb: FormBuilder
     ) {
-      const inProd = environment.production;
-      this.ps.initialize(inProd);
       this.ts.initialize();
       this.isLoggedIn = this.ps.getUser() != null ? true : false;
       this.user = mapUser(this.ps.getUser())
@@ -77,8 +75,8 @@ export class AppComponent implements OnInit, OnDestroy {
       (err) => {
         if (err .message === 'Invalid session token') {
           const appId = environment.parseParams.appId;
-          localStorage.removeItem(`Parse/${appId}/currentUser`);
-          location.href = '/';
+          // localStorage.removeItem(`Parse/${appId}/currentUser`);
+          // location.href = '/';
         } else {
           this.toastr.error(err.message,"Oops!", {
             closeButton: true,
@@ -138,7 +136,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   handleToolbarAction(action: string) {
-    console.log(action);
     if (action === 'login') {
       this.bsModalRef = this.modalService.show(this.loginRef, this.config);
     } else if (action === 'signup') {
