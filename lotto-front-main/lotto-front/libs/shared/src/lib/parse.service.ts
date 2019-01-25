@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Subject, Observable, of } from 'rxjs';
 import * as Parse from 'parse';
 import { ParseParams } from '@lotto-front/model';
@@ -29,16 +29,18 @@ export class ParseService {
   userObservable: Observable<Parse.User> = this.userSubject.asObservable();
   authObservable: Observable<AuthResponse> = this.authSubject.asObservable();
 
-  constructor() {}
+  constructor() {
+    this.initialize();
+  }
 
-  initialize(inProd: boolean = false) {
+  initialize() {
     const params: ParseParams = {
       appId: "abcd",
-      serverUrl:  this.getUrl(inProd)
+      serverUrl:  this.getUrl()
     }
     Parse.initialize(params.appId);
     Parse.serverURL = params.serverUrl;
-    Parse.liveQueryServerURL = this.getLiveUrl(inProd);
+    Parse.liveQueryServerURL = this.getLiveUrl();
   }
 
   getUser(): Parse.User {
@@ -105,10 +107,10 @@ export class ParseService {
     }
   }
 
-  getUrl(inProd: boolean): string {
-    return inProd ? `https://api.insta-lotto-naija.ml/v1` : 'http://localhost:3000/api';
+  getUrl(): string {
+    return !isDevMode() ? `https://api.insta-lotto-naija.ml/v1` : 'http://localhost:3000/api';
   }
-  getLiveUrl(inProd: boolean): string {
-    return inProd ? `wss://live.insta-lotto-naija.ml/live` : "ws://localhost:3030/live";
+  getLiveUrl(): string {
+    return !isDevMode() ? `wss://live.insta-lotto-naija.ml/live` : "ws://localhost:3030/live";
   }
 }

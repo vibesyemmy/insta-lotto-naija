@@ -7,11 +7,19 @@
   ],
   "user-front": [
     {
+      "projectName": "auth",
+      "type": "es6Import"
+    },
+    {
       "projectName": "shared",
       "type": "es6Import"
     },
     {
       "projectName": "model",
+      "type": "es6Import"
+    },
+    {
+      "projectName": "toolbar",
       "type": "es6Import"
     },
     {
@@ -28,6 +36,20 @@
     }
   ],
   "pagination": [],
+  "toolbar": [
+    {
+      "projectName": "wallet",
+      "type": "es6Import"
+    },
+    {
+      "projectName": "shared",
+      "type": "es6Import"
+    },
+    {
+      "projectName": "auth",
+      "type": "es6Import"
+    }
+  ],
   "tickets": [
     {
       "projectName": "model",
@@ -50,6 +72,16 @@
     }
   ],
   "model": [],
+  "auth": [
+    {
+      "projectName": "shared",
+      "type": "es6Import"
+    },
+    {
+      "projectName": "model",
+      "type": "es6Import"
+    }
+  ],
   "home": [
     {
       "projectName": "shared",
