@@ -17,14 +17,14 @@
 
           <h5 class="h5-responsive">Password</h5>
           <div class="md-form">
-            <i class="fa fa-envelope prefix"></i>
+            <i class="fa fa-lock prefix"></i>
             <input formControlName="password" type="password" id="password" class="form-control" [mdbValidate]="false"
               mdbInputDirective>
             <label for="password" class="">Enter your email password</label>
           </div>
 
           <div class="text-xs-left">
-            <button [disabled]="loginForm.invalid" class="btn btn-primary">Submit</button>
+            <button [disabled]="loginForm.invalid || inFlight" class="btn btn-primary">Submit</button>
           </div>
         </form>
       </div>

@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.inFlight = status.inFlight
 
       if (status.error != null) {
-        this.toastr.error(status.error.message, "Sign Failed", {
+        this.toastr.error(status.error.message, "Sign In Failed", {
           closeButton: true,
           positionClass: 'toast-top-center',
           timeOut: 10000

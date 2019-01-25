@@ -3,14 +3,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
+const BASE_TITLE = "Lotto | "
+
 const routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    data: {
+      title: `${BASE_TITLE}Sign In`
+    }
   },
   {
     path: 'signup',
-    component: SignupComponent
+    component: SignupComponent,
+    data: {
+      title: `${BASE_TITLE}Sign Up`
+    }
   }
 ];
 

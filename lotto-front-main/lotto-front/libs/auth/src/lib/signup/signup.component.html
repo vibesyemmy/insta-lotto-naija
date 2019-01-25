@@ -1,3 +1,41 @@
-<p>
-  signup works!
-</p>
+<div class="edge-header pink"></div>
+<div class="container free-bird">
+  <div class="row">
+    <div class="col-md-8 col-lg-7 mx-auto float-none white z-depth-1 py-2 px-2">
+      <div class="card-body">
+        <h2 class="h2-responsive"><strong>Sign Up</strong></h2>
+        <p class="pb-4">Please provide your Email, Password and Phone number to sign up.</p>
+
+        <form [formGroup]="signUpForm" id="signUpForm" (ngSubmit)="doSignUp()">
+          <h5 class="h5-responsive">Email</h5>
+          <!-- Basic textbox -->
+          <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <input formControlName="email" type="email" id="email" class="form-control" [mdbValidate]="false" mdbInputDirective>
+            <label for="email" class="">Enter your email address</label>
+          </div>
+
+          <h5 class="h5-responsive">Password</h5>
+          <div class="md-form">
+            <i class="fa fa-lock prefix"></i>
+            <input formControlName="password" type="password" id="password" class="form-control" [mdbValidate]="false"
+              mdbInputDirective>
+            <label for="password" class="">Enter your password</label>
+          </div>
+
+          <h5 class="h5-responsive">Phone</h5>
+          <div class="md-form">
+            <i class="fa fa-phone prefix"></i>
+            <input formControlName="phone" type="tel" id="phone" class="form-control" [mdbValidate]="false"
+              mdbInputDirective>
+            <label for="phone" class="">Enter your phone number</label>
+          </div>
+
+          <div class="text-xs-left">
+            <button [disabled]="signUpForm.invalid || inFlight" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
