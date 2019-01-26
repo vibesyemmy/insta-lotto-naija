@@ -145,7 +145,7 @@ span {
   left: 0;
   top: 0;
   right: 0;
-  height: 48px;
+  height: 100px;
   z-index: 3;
   transition: all 0.5s ease;
 }
@@ -177,6 +177,7 @@ span {
 #header #logo img {
   padding: 0;
   margin: 0;
+  width: 185px;
 }
 
 .scroll-header {
@@ -357,7 +358,7 @@ span {
 /* Nav Meu Container */
 #nav-menu-container {
   float: right;
-  margin: 0 0 0 0;
+  margin: 24px 0 0 0;
 }
 
 @media (max-width: 1024px) {
