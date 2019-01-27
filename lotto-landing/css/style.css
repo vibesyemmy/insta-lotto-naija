@@ -108,7 +108,7 @@ span {
 .back-to-top {
   position: fixed;
   display: none;
-  background: #CA4799;
+  background: #ffb12e;
   line-height: 1;
   color: #fff;
   padding: 7px 12px 13px 12px;
@@ -126,7 +126,7 @@ span {
 }
 
 .back-to-top:focus {
-  background: #CA4799;
+  background: #ffb12e;
   color: #fff;
   outline: none;
 }
@@ -171,7 +171,7 @@ span {
 }
 
 #header #logo h1 a span {
-  color: #CA4799;
+  color: #ffb12e;
 }
 
 #header #logo img {
@@ -222,7 +222,7 @@ span {
   font-weight: 700;
   line-height: 56px;
   font-family: "Philosopher", sans-serif;
-  color: #CA4799;
+  color: #ffb12e;
 }
 
 @media (max-width: 768px) {
@@ -264,7 +264,7 @@ span {
   border-radius: 50px;
   transition: 0.5s;
   margin-bottom: 30px;
-  border: 2px solid #CA4799;
+  border: 2px solid #ffb12e;
   background: #fff;
   color: #CA4799;
   text-decoration: none;
@@ -1361,5 +1361,5 @@ body.mobile-nav-active #mobile-nav-toggle i {
 
 .footer .copyrights p a, .footer .copyrights .credits a {
   letter-spacing: 0;
-  color: #CA4799;
+  color: #ffb12e;
 }
